@@ -1,14 +1,16 @@
-import { CELL_SIZE } from "../../utils/constants";
-import Sprite from "../object-graphics/Sprite";
+import { CELL_SIZE } from '../../utils/constants';
+import Sprite from '../object-graphics/Sprite';
+import { SpriteImageAtom } from '../../atoms/SpriteImageAtom';
+import { useRecoilValue } from 'recoil';
 
 interface MapCellProps {
   x: number;
   y: number;
   frameCoordinate: string;
-  image: CanvasImageSource;
 }
 
 const MapCell = (props: MapCellProps) => {
+  const SpriteImage = useRecoilValue(SpriteImageAtom);
   return (
     <div
     style= {{
@@ -17,7 +19,7 @@ const MapCell = (props: MapCellProps) => {
       top: props.y * CELL_SIZE,
     }}
     >
-      <Sprite frameCoordinate={props.frameCoordinate} image={props.image} size={16} />
+      <Sprite frameCoordinate={props.frameCoordinate} image={SpriteImage.levelBackgroundImage!} size={16} />
     </div>
   )
 };

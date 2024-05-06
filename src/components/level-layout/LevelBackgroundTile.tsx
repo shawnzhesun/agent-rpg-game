@@ -1,17 +1,8 @@
+import { LevelStateIFace } from '../../classes/LevelState';
 import MapCell from './MapCell';
 
 interface LevelBackgroundTileProps {
-  level: {
-    tileWidth: number;
-    tileHeight: number;
-    placements: {
-      id: number;
-      x: number;
-      y: number;
-      frameCoordinate: string;
-    }[];
-  };
-  image: CanvasImageSource;
+  level: LevelStateIFace;
 }
 
 const LevelBackgroundTile = (props: LevelBackgroundTileProps) => {
@@ -36,7 +27,6 @@ const LevelBackgroundTile = (props: LevelBackgroundTileProps) => {
           x={x}
           y={y}
           frameCoordinate={getTileValue(x, y)}
-          image={props.image}
         />
       )
     }
