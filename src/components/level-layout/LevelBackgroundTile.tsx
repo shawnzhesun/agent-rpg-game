@@ -1,8 +1,8 @@
-import { LevelStateIFace } from '../../classes/LevelState';
+import { ILevelState } from '../../classes/LevelState';
 import MapCell from './MapCell';
 
 interface LevelBackgroundTileProps {
-  level: LevelStateIFace;
+  level: ILevelState;
 }
 
 const LevelBackgroundTile = (props: LevelBackgroundTileProps) => {

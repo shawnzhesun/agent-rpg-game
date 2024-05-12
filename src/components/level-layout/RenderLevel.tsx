@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styles from './RenderLevel.module.css';
-import { SpriteImageAtom, SpriteImageAtomIFace } from '../../atoms/SpriteImageAtom';
+import { SpriteImageAtom, ISpriteImageAtom } from '../../atoms/SpriteImageAtom';
 import LevelBackgroundTile from './LevelBackgroundTile';
 import LevelPlacement from './LevelPlacement';
-import { LevelState, LevelStateIFace } from '../../state/LevelState';
+import { LevelState, ILevelState } from '../../classes/LevelState';
 
 
 const RenderLevel = () => {
-  const [level, setLevel] = useState<LevelStateIFace | null>(null);
+  const [level, setLevel] = useState<ILevelState | null>(null);
   useEffect(() => {
-    const levelState = new LevelState('work-level', (newState: LevelStateIFace) => {
+    const levelState = new LevelState('work-level', (newState: ILevelState) => {
       setLevel(newState);
     });
 
@@ -40,21 +40,25 @@ const RenderLevel = () => {
     loadSpriteResource('level-background.png').then(image =>
       setSpriteImage(prev => ({ ...prev, levelBackgroundImage: image as CanvasImageSource }))
     ).catch(console.error);
+
+    loadSpriteResource('texture.png').then(image =>
+      setSpriteImage(prev => ({ ...prev, textureImage: image as CanvasImageSource }))
+    ).catch(console.error);
   }, [setSpriteImage]);
 
-  function allImagesLoaded(image: SpriteImageAtomIFace): boolean {
+  function allImagesLoaded(image: ISpriteImageAtom): boolean {
     return Object.values(image).every(image => image !== null);
   }
 
   if (!level || !allImagesLoaded(spriteImage)) {
-    return <div>Error loading resources. Please try reloading the page.</div>;
+    return <div>Loading...</div>;
   }
 
   return (
     <div className={styles.fullScreenContainer} style={{ background: '#5b6983' }}>
       <div className={styles.gameScreen}>
         <LevelBackgroundTile level={level} />
-        <LevelPlacement placements={level.placements} />
+        <LevelPlacement placements={level.gameObjects} />
       </div>
     </div>
   );

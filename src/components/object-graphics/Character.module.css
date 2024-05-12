@@ -1,0 +1,15 @@
+.character {
+  position: relative;
+}
+
+.characterBody {
+  position: absolute;
+  left: -8px;
+  top: -19px;
+}
+
+.characterShadow {
+  position: absolute;
+  left: -10px;
+  top: -30px;
+}

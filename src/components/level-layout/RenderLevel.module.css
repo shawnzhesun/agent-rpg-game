@@ -1,4 +1,5 @@
 .fullScreenContainer {
+  margin-left: -30%;
   align-items: center;
   display: flex;
   inset: 0;

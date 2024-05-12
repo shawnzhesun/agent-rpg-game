@@ -1,36 +1,20 @@
-import { useRecoilValue } from 'recoil';
-import { CELL_SIZE } from '../../utils/constants';
-import Sprite from '../object-graphics/Sprite';
-import { SpriteImageAtom } from '../../atoms/SpriteImageAtom';
-
-interface LevelPlacementIFace {
-  id: number;
-  x: number;
-  y: number;
-  frameCoordinate: string;
-}
+import { GameObject } from '../../classes/GameObject';
 
 interface LevelPlacementsProps {
-  placements: LevelPlacementIFace[];
+  placements: GameObject[];
 }
 
 const LevelPlacement = (props: LevelPlacementsProps) => {
-  const SpriteImage = useRecoilValue(SpriteImageAtom);
   return (
-    props.placements.map((placement: LevelPlacementIFace) => {
-      const x = placement.x * CELL_SIZE + 'px';
-      const y = placement.y * CELL_SIZE + 'px';
+    props.placements.map((placement: GameObject) => {
+      const [x, y] = placement.displayXY();
       const style: React.CSSProperties = {
         position: 'absolute',
-        transform: `translate3d(${x}, ${y}, 0)`,
+        transform: `translate3d(${x}px, ${y}px, 0)`,
       };
       return (
         <div key={placement.id} style={style}>
-          <Sprite
-            image={SpriteImage.levelBackgroundImage!}
-            frameCoordinate={placement.frameCoordinate}
-            size={16}
-          />
+          {placement.renderComponent()}
         </div>
       )
     })
@@ -38,7 +22,3 @@ const LevelPlacement = (props: LevelPlacementsProps) => {
 }
 
 export default LevelPlacement;
-export type {
-  LevelPlacementIFace,
-  LevelPlacementsProps,
-};

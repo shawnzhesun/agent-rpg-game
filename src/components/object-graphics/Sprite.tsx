@@ -39,8 +39,8 @@ const Sprite = (props: SpriteProps) => {
 
     ctx.drawImage(
       props.image,
-      tileSheetX * CELL_SIZE, // Left X corner of the frame
-      tileSheetY * CELL_SIZE, // Top Y corner of the frame
+      tileSheetX * size, // Left X corner of the frame
+      tileSheetY * size, // Top Y corner of the frame
       size, // How much to crop from the sprite sheet (X)
       size, // How much to crop from the sprite shet (Y)
       0, // Where to place this on canvas tag X (0)
