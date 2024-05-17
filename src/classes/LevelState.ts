@@ -11,23 +11,25 @@ export type ILevelState = {
 }
 
 export class LevelState implements ILevelState {
-  levelId: string;
   tileWidth: number;
   tileHeight: number;
   gameObjects: GameObject[];
-  onEmit: (newState: ILevelState) => void;
   directionController: DirectionController;
   gameLoop: GameLoop;
   characterRef: CharacterObject;
 
-  constructor(levelId: string, onEmit: (newState: ILevelState) => void) {
+  constructor(
+    public levelId: string,
+    public onEmit: (newState: ILevelState) => void
+  ) {
     const gameObjectFactory = new GameObjectFactory();
     this.levelId = levelId;
     this.onEmit = onEmit;
     this.tileWidth = 16;
     this.tileHeight = 12;
     this.gameObjects = [
-      { id: 'tile1', type: 'tile', x: 4, y: 7},
+      { id: 'tile1', type: 'tile', x: 3, y: 6},
+      { id: 'tile2', type: 'tile', x: 5, y: 6},
       { id: 'character1', type: 'character', x: 1, y: 1},
     ].map(objectPlacement => {
       return gameObjectFactory.createObject(objectPlacement, this);
@@ -59,6 +61,15 @@ export class LevelState implements ILevelState {
       tileHeight: this.tileHeight,
       gameObjects: this.gameObjects,
     };
+  }
+
+  isPositionOutOfBound(x: number, y: number) {
+    return (
+      x <= 0 ||
+      y <= 0 ||
+      x >= this.tileWidth + 1  ||
+      y >= this.tileHeight + 2
+    );
   }
 
   destroy() {

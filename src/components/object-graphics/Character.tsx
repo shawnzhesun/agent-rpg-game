@@ -15,7 +15,7 @@ const Character = (props: CharacterProps) => {
       <div className={styles.characterShadow}>
         <Sprite frameCoordinate={'0x0'} image={SpriteImage.textureImage!} size={64} />
       </div>
-      <div className={styles.characterBody}>
+      <div className={styles.characterBody} >
         <Sprite frameCoordinate={props.frameCoordinate} image={SpriteImage.characterImage!} size={64} />
       </div>
     </div>

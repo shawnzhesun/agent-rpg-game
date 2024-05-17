@@ -4,12 +4,12 @@
 
 .characterBody {
   position: absolute;
-  left: -8px;
-  top: -19px;
+  left: -16px;
+  top: -48px;
 }
 
 .characterShadow {
   position: absolute;
-  left: -10px;
-  top: -30px;
+  left: -19px;
+  top: -44px;
 }

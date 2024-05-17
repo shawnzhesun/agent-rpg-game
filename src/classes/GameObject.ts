@@ -14,9 +14,11 @@ export abstract class GameObject implements IGameObject {
   y: number;
   type: string = '';
   level: LevelState;
-  travelPixelsPerFrame: number;
-  movingPixelsRemaining: number;
-  movingPixelsDirection: string;
+  collisionWidth: number = 1;
+  collisionHeight: number = 1;
+  protected travelPixelsPerFrame: number;
+  protected movingPixelsRemaining: number;
+  protected movingPixelsDirection: string;
 
   constructor(
     properties: IGameObject,
