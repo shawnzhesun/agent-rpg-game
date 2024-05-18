@@ -21,15 +21,15 @@ export class Collision {
   scanObjectAtPosition() {
     const extraWidth = this.forBody.collisionWidth - 1;
     const extraHeight = this.forBody.collisionHeight - 1;
-    console.log(`forBody x ${this.forBody.x} y ${this.forBody.y} collision x ${this.x} y ${this.y}`);
     this.objectsAtPosition = this.level.gameObjects.filter((object) => {
+      const objectExtraWidth = object.collisionWidth - 1;
+      const objectExtraHeight = object.collisionHeight - 1;
       return object.id !== this.forBody.id &&
-        object.x >= this.x! &&
+        object.x + objectExtraWidth >= this.x! &&
         object.x <= this.x! + extraWidth &&
-        object.y >= this.y! &&
+        object.y + objectExtraHeight >= this.y! &&
         object.y <= this.y! + extraHeight;
     });
-    console.log(this.objectsAtPosition);
   }
 
   isCollision() {

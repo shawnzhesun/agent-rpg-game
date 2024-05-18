@@ -67,4 +67,8 @@ export abstract class GameObject implements IGameObject {
         return [x + progressPixels, y];
     }
   }
+
+  zIndex() {
+    return this.y;
+  }
 }

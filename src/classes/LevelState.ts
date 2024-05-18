@@ -29,8 +29,9 @@ export class LevelState implements ILevelState {
     this.tileHeight = 12;
     this.gameObjects = [
       { id: 'tile1', type: 'tile', x: 3, y: 6},
-      { id: 'tile2', type: 'tile', x: 5, y: 6},
+      { id: 'tile2', type: 'tile', x: 6, y: 6},
       { id: 'character1', type: 'character', x: 1, y: 1},
+      { id: 'doc-agent', type: 'documentation-agent', x: 5, y: 2},
     ].map(objectPlacement => {
       return gameObjectFactory.createObject(objectPlacement, this);
     });

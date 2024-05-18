@@ -11,6 +11,7 @@ const LevelPlacement = (props: LevelPlacementsProps) => {
       const style: React.CSSProperties = {
         position: 'absolute',
         transform: `translate3d(${x}px, ${y}px, 0)`,
+        zIndex: placement.zIndex(),
       };
       return (
         <div key={placement.id} style={style}>
