@@ -1,0 +1,19 @@
+.textBox {
+  position: absolute;
+  margin-top: -100px;
+  margin-left: 32px;
+  text-align: left;
+  color: white;
+}
+
+.textBoxText {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  font-family: 'fontRetroGaming';
+  font-size: 9px;
+  max-width: 239px;
+  height: 58px;
+  overflow-y: scroll;
+  overflow-wrap: break-word;
+}

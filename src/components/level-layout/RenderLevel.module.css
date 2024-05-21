@@ -1,5 +1,6 @@
 .fullScreenContainer {
   margin-left: -30%;
+  margin-top: -100px;
   align-items: center;
   display: flex;
   inset: 0;
@@ -11,6 +12,4 @@
   width: var(--game-viewport-width);
   height: var(--game-viewport-height);
   transform: scale(var(--pixel-size));
-
-  /* outline: 2px red dashed; */
 }

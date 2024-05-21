@@ -41,3 +41,8 @@ canvas {
     --pixel-size: 4;
   }
 }
+
+@font-face {
+  font-family: fontRetroGaming;
+  src: url('fonts/Retro Gaming.ttf');
+}

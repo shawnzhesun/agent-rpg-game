@@ -1,15 +1,21 @@
 import Character from '../../components/object-graphics/Character';
 import { DIRECTION_MAP, CELL_SIZE, DIRECTION_RIGHT, DIRECTION_LEFT } from '../../utils/constants';
 import { Collision } from '../Collision';
+import { Conversation } from '../Conversation';
 import { GameObject, IGameObject } from '../GameObject';
 import { LevelState } from '../LevelState';
+import { TextBoxObject } from './TextBoxObject';
 
+/**
+ * The main character object, handles most of the game logic.
+ */
 export class CharacterObject extends GameObject {
   type = 'character';
   collisionWidth = 2;
   collisionHeight = 1;
   spriteWalkFrame: number;
   facingDirection: string;
+  actionTriggered: boolean = false;
 
   constructor(
     properties: IGameObject,
@@ -62,8 +68,8 @@ export class CharacterObject extends GameObject {
 
   checkMoveability(direction: string) {
     const {x, y} = DIRECTION_MAP[direction];
-    const nextX = this.x + x; // since the character is 2-tile wide
-    const nextY = this.y + y; // since the character is 2-tile tall
+    const nextX = this.x + x;
+    const nextY = this.y + y;
     const isOutOfBound = this.level.isPositionOutOfBound(
       nextX,
       nextY,
@@ -72,15 +78,45 @@ export class CharacterObject extends GameObject {
 
     const collision = new Collision(this, this.level, nextX, nextY);
     if (collision.isCollision()) return false;
+    if (this.level.conversation) return false;
     return true;
   }
 
   stopRequested() {
     this.spriteWalkFrame = 0;
+    this.actionTriggered = false;
+  }
+
+  actionRequested() {
+    if (this.actionTriggered) return;
+    const conversationTarget = this.scanForConversationTarget();
+    if (!conversationTarget) return;
+    const conversation = conversationTarget.conversation();
+    this.level.conversationAction(conversation!);
+    this.actionTriggered = true;
+  }
+
+  scanForConversationTarget() {
+    const conversationObjects = this.level.gameObjects.filter((object) => {
+      return object.id !== this.id &&
+        object.hasConversation === true &&
+        (
+          object.x + (object.collisionWidth - 1) === this.x - 1 && object.y === this.y ||
+          object.x - 1 === this.x + (this.collisionWidth - 1) && object.y === this.y ||
+          object.y + 1 === this.y && object.x === this.x ||
+          object.y -1 === this.y && object.x === this.x
+        );
+    });
+    if (conversationObjects.length === 0) {
+      return null;
+    } else if (conversationObjects.length > 1) {
+      throw new Error('Multiple conversation objects detected');
+    }
+    return conversationObjects[0];
   }
 
   updateWalkFrame() {
-    if (this.spriteWalkFrame === 3)
+    if (this.spriteWalkFrame === 4)
       this.spriteWalkFrame = 1;
     else
       this.spriteWalkFrame += 1;
@@ -93,6 +129,8 @@ export class CharacterObject extends GameObject {
           return this.facingDirection === DIRECTION_RIGHT ? '2x0' : '6x0';
         case 2:
           return this.facingDirection === DIRECTION_RIGHT ? '3x0' : '7x0';
+        case 3:
+          return this.facingDirection === DIRECTION_RIGHT ? '0x0' : '4x0';
         default:
           return this.facingDirection === DIRECTION_RIGHT ? '1x0' : '5x0';
       }

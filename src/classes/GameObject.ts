@@ -1,4 +1,5 @@
 import { CELL_SIZE, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT, DIRECTION_UP } from "../utils/constants";
+import { Conversation } from "./Conversation";
 import { LevelState } from "./LevelState";
 
 export interface IGameObject {
@@ -16,6 +17,7 @@ export abstract class GameObject implements IGameObject {
   level: LevelState;
   collisionWidth: number = 1;
   collisionHeight: number = 1;
+  hasConversation: boolean = false;
   protected travelPixelsPerFrame: number;
   protected movingPixelsRemaining: number;
   protected movingPixelsDirection: string;
@@ -42,6 +44,10 @@ export abstract class GameObject implements IGameObject {
    * Tick the game object in the game loop
    */
   abstract tick(): void;
+
+  conversation(): Conversation | null {
+    return null;
+  }
 
   displayXY() {
     if (this.movingPixelsRemaining > 0) {

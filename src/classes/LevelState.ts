@@ -1,8 +1,11 @@
-import { DirectionController } from './DirectionController';
+import { KeyController } from './KeyController';
 import { GameLoop } from './GameLoop';
 import { GameObject } from './GameObject';
 import { GameObjectFactory } from './GameObjectFactory';
 import { CharacterObject } from './game-objects/CharacterObject';
+import { ACTION_COMMAND, DIRECTION_COMMAND } from '../utils/constants';
+import { TextBoxObject } from './game-objects/TextBoxObject';
+import { Conversation } from './Conversation';
 
 export type ILevelState = {
   tileWidth: number;
@@ -14,9 +17,11 @@ export class LevelState implements ILevelState {
   tileWidth: number;
   tileHeight: number;
   gameObjects: GameObject[];
-  directionController: DirectionController;
+  keyController: KeyController;
   gameLoop: GameLoop;
   characterRef: CharacterObject;
+  textBoxRef: TextBoxObject;
+  conversation?: Conversation;
 
   constructor(
     public levelId: string,
@@ -25,26 +30,30 @@ export class LevelState implements ILevelState {
     const gameObjectFactory = new GameObjectFactory();
     this.levelId = levelId;
     this.onEmit = onEmit;
-    this.tileWidth = 16;
+    this.tileWidth = 20;
     this.tileHeight = 12;
     this.gameObjects = [
       { id: 'tile1', type: 'tile', x: 3, y: 6},
       { id: 'tile2', type: 'tile', x: 6, y: 6},
       { id: 'character1', type: 'character', x: 1, y: 1},
       { id: 'doc-agent', type: 'documentation-agent', x: 5, y: 2},
+      { id: 'text-box', type: 'text-box', x: 1, y: 15, content: ''},
     ].map(objectPlacement => {
       return gameObjectFactory.createObject(objectPlacement, this);
     });
-    this.directionController = new DirectionController();
+    this.keyController = new KeyController();
     this.gameLoop = new GameLoop(() => {
       this.tick();
     });
     this.characterRef = this.gameObjects.find(o => o.type === 'character')! as CharacterObject;
+    this.textBoxRef = this.gameObjects.find(o => o.type === 'text-box')! as TextBoxObject;
   }
 
   tick() {
-    if (this.directionController.direction) {
-      this.characterRef.controlRequested(this.directionController.direction);
+    if (this.keyController.lastHeldKey && this.keyController.lastHeldKey === ACTION_COMMAND) {
+      this.characterRef.actionRequested();
+    } else if (this.keyController.lastHeldKey && DIRECTION_COMMAND.includes(this.keyController.lastHeldKey)) {
+      this.characterRef.controlRequested(this.keyController.lastHeldKey);
     } else {
       this.characterRef.stopRequested();
     }
@@ -73,8 +82,35 @@ export class LevelState implements ILevelState {
     );
   }
 
+  conversationAction(conversation: Conversation) {
+    if (this.conversation?.id === conversation.id) {
+      // The requested conversation is in progress
+      const nextMessage = this.conversation.nextMessage();
+      if (nextMessage === null) {
+        this.conversation = undefined;
+        this.updateTextBoxContent('');
+      } else if (nextMessage) {
+        this.updateTextBoxContent(nextMessage);
+      }
+    } else {
+      // Start a new conversation
+      this.conversation = conversation;
+      const nextMessage = this.conversation.nextMessage();
+      if (nextMessage) {
+        this.updateTextBoxContent(nextMessage);
+      }
+    }
+  }
+
+  updateTextBoxContent(newContent: string) {
+    if (this.textBoxRef) {
+      this.textBoxRef.updateContent(newContent);
+      this.onEmit(this.getState());
+    }
+  }
+
   destroy() {
     this.gameLoop.stop();
-    this.directionController.unbind();
+    this.keyController.unbind();
   }
 }

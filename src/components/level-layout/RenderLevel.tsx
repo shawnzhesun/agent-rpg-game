@@ -44,6 +44,10 @@ const RenderLevel = () => {
     loadSpriteResource('texture.png').then(image =>
       setSpriteImage(prev => ({ ...prev, textureImage: image as CanvasImageSource }))
     ).catch(console.error);
+
+    loadSpriteResource('text-box.png').then(image =>
+      setSpriteImage(prev => ({ ...prev, textBoxImage: image as CanvasImageSource }))
+    ).catch(console.error);
   }, [setSpriteImage]);
 
   function allImagesLoaded(image: ISpriteImageAtom): boolean {
@@ -55,7 +59,7 @@ const RenderLevel = () => {
   }
 
   return (
-    <div className={styles.fullScreenContainer} style={{ background: '#5b6983' }}>
+    <div className={styles.fullScreenContainer} style={{ background: '#222222' }}>
       <div className={styles.gameScreen}>
         <LevelBackgroundTile level={level} />
         <LevelPlacement placements={level.gameObjects} />
