@@ -1,0 +1,47 @@
+.avatar {
+  box-sizing: border-box;
+  height: 34px;
+  border: white 1px solid;
+  background-color: #e5e5f7;
+  opacity: 0.3;
+  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 2px ), repeating-linear-gradient( orange, pink );
+}
+
+.avatarFocused {
+  --b: 3px;   /* thickness of the border */
+  --c: red;   /* color of the border */
+  --w: 10px;  /* width of border */
+  opacity: 1;
+  --_g: #0000 90deg,var(--c) 0;
+  --_p: var(--w) var(--w) border-box no-repeat;
+  animation: blink 0.5s infinite;
+}
+
+.avatarSelected {
+  --b: 3px;   /* thickness of the border */
+  --c: green;   /* color of the border */
+  --w: 10px;  /* width of border */
+  opacity: 1;
+  --_g: #0000 90deg,var(--c) 0;
+  --_p: var(--w) var(--w) border-box no-repeat;
+  animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+  from, to {
+    background:
+      conic-gradient(from 90deg  at top    var(--b) left  var(--b),var(--_g)) 0    0    / var(--_p),
+      conic-gradient(from 180deg at top    var(--b) right var(--b),var(--_g)) 100% 0    / var(--_p),
+      conic-gradient(from 0deg   at bottom var(--b) left  var(--b),var(--_g)) 0    100% / var(--_p),
+      conic-gradient(from -90deg at bottom var(--b) right var(--b),var(--_g)) 100% 100% / var(--_p),
+      repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 2px ), repeating-linear-gradient( orange, pink );
+  }
+  50% {
+    background:
+      conic-gradient(from 90deg  at top    var(--b) left  var(--b),var(--_g)) 2%    2% / var(--_p),
+      conic-gradient(from 180deg at top    var(--b) right var(--b),var(--_g)) 98%   2% / var(--_p),
+      conic-gradient(from 0deg   at bottom var(--b) left  var(--b),var(--_g)) 2%   98% / var(--_p),
+      conic-gradient(from -90deg at bottom var(--b) right var(--b),var(--_g)) 98%  98% / var(--_p),
+      repeating-radial-gradient( circle at 0 0, transparent 0, #e5e5f7 2px ), repeating-linear-gradient( orange, pink );
+  }
+}

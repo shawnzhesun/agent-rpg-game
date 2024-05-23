@@ -37,6 +37,7 @@ export class LevelState implements ILevelState {
       { id: 'tile2', type: 'tile', x: 6, y: 6},
       { id: 'character1', type: 'character', x: 1, y: 1},
       { id: 'doc-agent', type: 'documentation-agent', x: 5, y: 2},
+      { id: 'eng-agent', type: 'engineer-agent', x: 8, y: 4},
       { id: 'text-box', type: 'text-box', x: 1, y: 15, content: ''},
     ].map(objectPlacement => {
       return gameObjectFactory.createObject(objectPlacement, this);

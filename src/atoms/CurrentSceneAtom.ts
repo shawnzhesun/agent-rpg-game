@@ -8,5 +8,6 @@ export const CurrentSceneAtom = atom<ICurrentSceneAtom>({
   key: 'CurrentSceneAtom',
   default: {
     currentSceneId: 'agent-selection-scene',
+    // currentSceneId: 'work-level',
   },
 });

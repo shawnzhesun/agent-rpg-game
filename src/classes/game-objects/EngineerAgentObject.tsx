@@ -1,26 +1,26 @@
-import DocumentationAgent from "../../components/object-graphics/DocumentationAgent";
+import EngineerAgent from "../../components/object-graphics/EngineerAgent";
 import { Conversation } from "../Conversation";
 import { AgentObject } from './AgentObject';
 
-export class DocumentationAgentObject extends AgentObject {
-  type = 'documentation-agent';
+export class EngineerAgentObject extends AgentObject {
+  type = 'engineer-agent';
 
   conversation() {
     // TODO: Implement dynamic conversation based on LLM
     return new Conversation(
-      'conv-1',
-      'documentation-agent',
+      'conv-2',
+      'engineer-agent',
       [
         {
-          role: 'documentation-agent',
-          content: 'Hi there! I am the documentation agent. I can help you with your questions.',
+          role: 'engineer-agent',
+          content: 'Hi there! I am the engineer agent. I can help you with your questions.',
         },
         {
           role: 'character',
           content: 'Hi! I have a question about the game.',
         },
         {
-          role: 'documentation-agent',
+          role: 'engineer-agent',
           content: 'Sure! What would you like to know?',
         },
       ]
@@ -30,6 +30,6 @@ export class DocumentationAgentObject extends AgentObject {
   tick() {}
 
   renderComponent(): JSX.Element {
-    return <DocumentationAgent frameCoordinate='0x2' />
+    return <EngineerAgent frameCoordinate='0x3' />
   }
 }

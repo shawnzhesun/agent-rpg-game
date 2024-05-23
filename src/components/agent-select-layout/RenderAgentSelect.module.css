@@ -1,0 +1,15 @@
+.fullScreenContainer {
+  margin-left: -40%;
+  margin-top: -100px;
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: absolute;
+}
+
+.gameScreen {
+  width: var(--game-viewport-width);
+  height: var(--game-viewport-height);
+  transform: scale(var(--pixel-size));
+}

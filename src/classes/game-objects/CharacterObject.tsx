@@ -1,10 +1,8 @@
 import Character from '../../components/object-graphics/Character';
 import { DIRECTION_MAP, CELL_SIZE, DIRECTION_RIGHT, DIRECTION_LEFT } from '../../utils/constants';
 import { Collision } from '../Collision';
-import { Conversation } from '../Conversation';
 import { GameObject, IGameObject } from '../GameObject';
 import { LevelState } from '../LevelState';
-import { TextBoxObject } from './TextBoxObject';
 
 /**
  * The main character object, handles most of the game logic.
