@@ -8,7 +8,7 @@ const AgentTilePlacement = (props: AgentTilePlacementProps) => {
   return (
     <div style={{
       position: 'absolute',
-      left: 100,
+      left: 120,
       top: 120,
     }}>
       {props.placements.map((placement: AgentAvatarObject) => {

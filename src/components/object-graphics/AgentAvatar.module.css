@@ -27,6 +27,18 @@
   animation: blink 0.5s infinite;
 }
 
+.portrait {
+  position: fixed;
+  top: -10px;
+  float: left;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
 @keyframes blink {
   from, to {
     background:

@@ -6,6 +6,7 @@ export interface ISpriteImageAtom {
   textureImage: CanvasImageSource | null;
   textBoxImage: CanvasImageSource | null;
   agentSelectBackgroundImage: CanvasImageSource | null;
+  portraitImage: CanvasImageSource | null;
 }
 
 export const SpriteImageAtom = atom<ISpriteImageAtom>({
@@ -16,5 +17,6 @@ export const SpriteImageAtom = atom<ISpriteImageAtom>({
     textureImage: null,
     textBoxImage: null,
     agentSelectBackgroundImage: null,
+    portraitImage: null,
   },
 });

@@ -42,9 +42,16 @@ const RenderAgentSelect = () => {
     ).catch(console.error);
   }, [setSpriteImage]);
 
+  useEffect(() => {
+    loadSpriteResource('character-portrait.png').then(image =>
+      setSpriteImage(prev => ({ ...prev, portraitImage: image as CanvasImageSource }))
+    ).catch(console.error);
+  }, [setSpriteImage]);
+
   if (!selectState ||
       !spriteImage.characterImage ||
-      !spriteImage.agentSelectBackgroundImage) {
+      !spriteImage.agentSelectBackgroundImage ||
+      !spriteImage.portraitImage) {
     return <div>Loading...</div>;
   }
 

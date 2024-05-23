@@ -11,9 +11,16 @@ interface EngineerAgentAvatarProps {
 const EngineerAgentAvatar = (props: EngineerAgentAvatarProps) => {
   const SpriteImage = useRecoilValue(SpriteImageAtom);
   return (
-    <div className={`${styles.avatar} ${props.onFocus && styles.avatarFocused} ${props.selected && !props.onFocus && styles.avatarSelected}`}>
-      <Sprite frameCoordinate='0.5x6.5' image={SpriteImage.characterImage!} size={32} />
-    </div>
+    <>
+      <div className={`${styles.avatar} ${props.onFocus && styles.avatarFocused} ${props.selected && !props.onFocus && styles.avatarSelected}`}>
+        <Sprite frameCoordinate='0.5x6.5' image={SpriteImage.characterImage!} size={32} />
+      </div>
+      {props.onFocus &&
+        <div className={styles.portrait} style={{left: '-105px'}}>
+          <Sprite frameCoordinate='2x0' image={SpriteImage.portraitImage!} size={192} />
+        </div>
+      }
+    </>
   );
 }
 
