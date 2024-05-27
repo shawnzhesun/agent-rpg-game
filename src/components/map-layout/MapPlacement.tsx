@@ -1,10 +1,10 @@
 import { GameObject } from '../../classes/GameObject';
 
-interface LevelPlacementsProps {
+interface MapPlacementsProps {
   placements: GameObject[];
 }
 
-const LevelPlacement = (props: LevelPlacementsProps) => {
+const MapPlacement = (props: MapPlacementsProps) => {
   return (
     props.placements.map((placement: GameObject) => {
       const [x, y] = placement.displayXY();
@@ -22,4 +22,4 @@ const LevelPlacement = (props: LevelPlacementsProps) => {
   )
 }
 
-export default LevelPlacement;
+export default MapPlacement;

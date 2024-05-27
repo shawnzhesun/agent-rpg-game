@@ -1,6 +1,6 @@
 import { CELL_SIZE, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT, DIRECTION_UP } from "../utils/constants";
 import { Conversation } from "./Conversation";
-import { LevelState } from "./LevelState";
+import { MapState } from "./MapState";
 
 export interface IGameObject {
   id: string;
@@ -14,7 +14,7 @@ export abstract class GameObject implements IGameObject {
   x: number;
   y: number;
   type: string = '';
-  level: LevelState;
+  map: MapState;
   collisionWidth: number = 1;
   collisionHeight: number = 1;
   hasConversation: boolean = false;
@@ -24,12 +24,12 @@ export abstract class GameObject implements IGameObject {
 
   constructor(
     properties: IGameObject,
-    level: LevelState
+    map: MapState
   ) {
     this.id = properties.id;
     this.x = properties.x;
     this.y = properties.y;
-    this.level = level;
+    this.map = map;
     this.travelPixelsPerFrame = 1.5;
     this.movingPixelsRemaining = 0;
     this.movingPixelsDirection = DIRECTION_RIGHT;

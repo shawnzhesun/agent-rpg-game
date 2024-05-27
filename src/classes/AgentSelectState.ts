@@ -1,11 +1,12 @@
+import { IAgentObject } from '../atoms/AgentsAtom';
+import AgentCreation from '../components/object-graphics/AgentCreation';
 import { ACTION_COMMAND, DIRECTION_COMMAND, DIRECTION_MAP } from '../utils/constants';
 import { GameLoop } from './GameLoop';
 import { KeyController } from './KeyController';
 import { AgentAvatarObject } from './game-objects/AgentAvatarObject';
-import { DataEngineerAgentAvartarObject } from './game-objects/DataEngineerAgentAvartarObject';
-import { DocumentationAgentAvartarObject } from './game-objects/DocumentationAgentAvartarObject';
+import { AgentConfirmObject } from './game-objects/AgentConfirmObject';
+import { AgentCreationObject } from './game-objects/AgentCreationObject';
 import { DummyAgentAvartarObject } from './game-objects/DummyAgentAvartarObject';
-import { EngineerAgentAvartarObject } from './game-objects/EngineerAgentAvartarObject';
 
 export type IAgentSelectState = {
   selectionTileWidth: number;
@@ -22,23 +23,27 @@ export class AgentSelectState implements IAgentSelectState {
   cursor: SelectCursor;
 
   constructor(
+    public agentList: IAgentObject[],
     public onEmit: (newState: IAgentSelectState) => void
   ) {
     this.onEmit = onEmit;
     this.selectionTileWidth = 5;
     this.selectionTileHeight = 2;
-    this.agents = [
-      new DocumentationAgentAvartarObject('documentation-agent', 0, 0),
-      new EngineerAgentAvartarObject('engineer-agent', 1, 0),
-      new DataEngineerAgentAvartarObject('data-agent', 2, 0),
-      new DummyAgentAvartarObject('f1', 3, 0),
-      new DummyAgentAvartarObject('f2', 4, 0),
-      new DummyAgentAvartarObject('f3', 0, 1),
-      new DummyAgentAvartarObject('f4', 1, 1),
-      new DummyAgentAvartarObject('f5', 2, 1),
-      new DummyAgentAvartarObject('f6', 3, 1),
-      new DummyAgentAvartarObject('f7', 4, 1),
-    ];
+    this.agents = [];
+    let index = 0;
+    for(let i = 0; i < this.selectionTileWidth; i++) {
+      for(let j = 0; j < this.selectionTileHeight; j++) {
+        const agent = agentList[index];
+        if (agent) {
+          this.agents.push(new AgentAvatarObject(agent.id, i, j, agent.bodyFrameCoordinate, agent.portraitFrameCoordinate));
+        } else {
+          this.agents.push(new DummyAgentAvartarObject(`f${i}${j}`, i, j, '18.5x0.5', ''));
+        }
+        index++;
+      }
+    }
+    this.agents.push(new AgentCreationObject('agent-creation', this.selectionTileWidth, 0, '', ''));
+    this.agents.push(new AgentConfirmObject('agent-confirm', this.selectionTileWidth, 1, '', ''));
     this.keyController = new KeyController();
     this.gameLoop = new GameLoop(() => {
       this.tick();
@@ -119,7 +124,7 @@ class SelectCursor {
     return (
       x < 0 ||
       y < 0 ||
-      x >= this.state.selectionTileWidth ||
+      x > this.state.selectionTileWidth ||
       y >= this.state.selectionTileHeight
     );
   }

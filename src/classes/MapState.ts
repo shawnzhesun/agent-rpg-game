@@ -6,14 +6,15 @@ import { CharacterObject } from './game-objects/CharacterObject';
 import { ACTION_COMMAND, DIRECTION_COMMAND } from '../utils/constants';
 import { TextBoxObject } from './game-objects/TextBoxObject';
 import { Conversation } from './Conversation';
+import { IAgentObject } from '../atoms/AgentsAtom';
 
-export type ILevelState = {
+export type IMapState = {
   tileWidth: number;
   tileHeight: number;
   gameObjects: GameObject[];
 }
 
-export class LevelState implements ILevelState {
+export class MapState implements IMapState {
   tileWidth: number;
   tileHeight: number;
   gameObjects: GameObject[];
@@ -24,24 +25,24 @@ export class LevelState implements ILevelState {
   conversation?: Conversation;
 
   constructor(
-    public levelId: string,
-    public onEmit: (newState: ILevelState) => void
+    public agentList: IAgentObject[],
+    public onEmit: (newState: IMapState) => void
   ) {
     const gameObjectFactory = new GameObjectFactory();
-    this.levelId = levelId;
     this.onEmit = onEmit;
     this.tileWidth = 20;
     this.tileHeight = 12;
-    this.gameObjects = [
+    const nonAgentObjects = [
       { id: 'tile1', type: 'tile', x: 3, y: 6},
       { id: 'tile2', type: 'tile', x: 6, y: 6},
       { id: 'character1', type: 'character', x: 1, y: 1},
-      { id: 'doc-agent', type: 'documentation-agent', x: 5, y: 2},
-      { id: 'eng-agent', type: 'engineer-agent', x: 8, y: 4},
       { id: 'text-box', type: 'text-box', x: 1, y: 15, content: ''},
-    ].map(objectPlacement => {
-      return gameObjectFactory.createObject(objectPlacement, this);
-    });
+    ];
+    this.gameObjects = nonAgentObjects.map(o => {
+      return gameObjectFactory.createObject(o, this, '');
+    }).concat(agentList.map(agent => {
+      return gameObjectFactory.createObject(agent, this, agent.gameFrameCoordiante);
+    }));
     this.keyController = new KeyController();
     this.gameLoop = new GameLoop(() => {
       this.tick();
@@ -66,7 +67,7 @@ export class LevelState implements ILevelState {
     this.onEmit(this.getState());
   }
 
-  getState(): ILevelState {
+  getState(): IMapState {
     return {
       tileWidth: this.tileWidth,
       tileHeight: this.tileHeight,

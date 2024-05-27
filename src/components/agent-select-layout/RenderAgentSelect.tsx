@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { SpriteImageAtom } from '../../atoms/SpriteImageAtom';
 import styles from './RenderAgentSelect.module.css';
 import AgentSelectBackground from './AgentSelectBackground';
 import { AgentSelectState, IAgentSelectState } from '../../classes/AgentSelectState';
 import AgentTilePlacement from './AgentTilePlacement';
+import { AgentsAtom } from '../../atoms/AgentsAtom';
 
 const RenderAgentSelect = () => {
   const [selectState, setSelectState] = useState<IAgentSelectState | null>(null);
+  const agentList = useRecoilValue(AgentsAtom).agents;
   useEffect(() => {
-    const agentSelectState = new AgentSelectState((newState: IAgentSelectState) => {
+    const agentSelectState = new AgentSelectState(agentList, (newState: IAgentSelectState) => {
       setSelectState(newState);
     });
 
@@ -18,7 +20,8 @@ const RenderAgentSelect = () => {
     return () => {
       agentSelectState.destroy();
     };
-  }, []);
+  }, [agentList]);
+
   const loadSpriteResource = (src: string) => {
     return new Promise((resolve, reject) => {
       const image = new Image();
@@ -48,10 +51,33 @@ const RenderAgentSelect = () => {
     ).catch(console.error);
   }, [setSpriteImage]);
 
-  if (!selectState ||
-      !spriteImage.characterImage ||
-      !spriteImage.agentSelectBackgroundImage ||
-      !spriteImage.portraitImage) {
+  useEffect(() => {
+    loadSpriteResource('buttons.png').then(image =>
+      setSpriteImage(prev => ({ ...prev, buttonImage: image as CanvasImageSource }))
+    ).catch(console.error);
+  }, [setSpriteImage]);
+
+  useEffect(() => {
+    loadSpriteResource('map-background.png').then(image =>
+      setSpriteImage(prev => ({ ...prev, mapBackgroundImage: image as CanvasImageSource }))
+    ).catch(console.error);
+  }, [setSpriteImage]);
+
+  useEffect(() => {
+    loadSpriteResource('texture.png').then(image =>
+      setSpriteImage(prev => ({ ...prev, textureImage: image as CanvasImageSource }))
+    ).catch(console.error);
+  }, [setSpriteImage]);
+
+  useEffect(() => {
+    loadSpriteResource('text-box.png').then(image =>
+      setSpriteImage(prev => ({ ...prev, textBoxImage: image as CanvasImageSource }))
+    ).catch(console.error);
+  }, [setSpriteImage]);
+
+  const allImagesLoaded = Object.values(spriteImage).every(image => image !== null);
+
+  if (!selectState || !allImagesLoaded) {
     return <div>Loading...</div>;
   }
 

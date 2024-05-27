@@ -4,3 +4,52 @@ html, body {
   overflow: hidden;
   image-rendering: pixelated;
 }
+
+.app-container {
+  opacity: 1;
+}
+
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  75% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  75% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.app-container.fade-out {
+  animation: fadeOut 2s steps(4);
+}
+
+.app-container.fade-in {
+  animation: fadeIn 2s steps(4);
+}

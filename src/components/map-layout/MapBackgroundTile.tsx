@@ -1,13 +1,13 @@
-import { ILevelState } from '../../classes/LevelState';
+import { IMapState } from '../../classes/MapState';
 import MapCell from './MapCell';
 
-interface LevelBackgroundTileProps {
-  level: ILevelState;
+interface MapBackgroundTileProps {
+  map: IMapState;
 }
 
-const LevelBackgroundTile = (props: LevelBackgroundTileProps) => {
-  const widthWithWall = props.level.tileWidth + 1;
-  const heightWithWall = props.level.tileHeight + 1;
+const MapBackgroundTile = (props: MapBackgroundTileProps) => {
+  const widthWithWall = props.map.tileWidth + 1;
+  const heightWithWall = props.map.tileHeight + 1;
   function getTileValue(x: number, y: number) {
     if (x === 0) return '0x1';
     if (x === widthWithWall) return '2x1';
@@ -34,4 +34,4 @@ const LevelBackgroundTile = (props: LevelBackgroundTileProps) => {
   return <div>{canvases}</div>;
 };
 
-export default LevelBackgroundTile;
+export default MapBackgroundTile;

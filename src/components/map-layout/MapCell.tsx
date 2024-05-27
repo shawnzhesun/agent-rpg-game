@@ -19,7 +19,7 @@ const MapCell = (props: MapCellProps) => {
       top: props.y * CELL_SIZE,
     }}
     >
-      <Sprite frameCoordinate={props.frameCoordinate} image={SpriteImage.levelBackgroundImage!} size={16} />
+      <Sprite frameCoordinate={props.frameCoordinate} image={SpriteImage.mapBackgroundImage!} size={16} />
     </div>
   )
 };

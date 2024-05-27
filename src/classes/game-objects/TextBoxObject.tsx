@@ -1,6 +1,6 @@
 import TextBox from "../../components/object-graphics/TextBox";
 import { GameObject, IGameObject } from "../GameObject";
-import { LevelState } from "../LevelState";
+import { MapState } from "../MapState";
 
 interface TextBoxObjectProps extends IGameObject {
   content: string;
@@ -10,8 +10,8 @@ export class TextBoxObject extends GameObject {
   type = 'text-box';
   content: string;
 
-  constructor(properties: TextBoxObjectProps, level: LevelState) {
-    super(properties, level);
+  constructor(properties: TextBoxObjectProps, map: MapState) {
+    super(properties, map);
     this.content = properties.content;
   }
 

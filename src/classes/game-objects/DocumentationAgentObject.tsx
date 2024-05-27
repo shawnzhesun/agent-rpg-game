@@ -1,4 +1,4 @@
-import DocumentationAgent from "../../components/object-graphics/DocumentationAgent";
+import DocumentationAgent from "../../components/object-graphics/Agent";
 import { Conversation } from "../Conversation";
 import { AgentObject } from './AgentObject';
 
@@ -8,7 +8,7 @@ export class DocumentationAgentObject extends AgentObject {
   conversation() {
     // TODO: Implement dynamic conversation based on LLM
     return new Conversation(
-      'conv-1',
+      'documentation',
       'documentation-agent',
       [
         {

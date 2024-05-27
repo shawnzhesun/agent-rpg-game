@@ -3,11 +3,11 @@ import { SpriteImageAtom } from '../../atoms/SpriteImageAtom';
 import { useRecoilValue } from 'recoil';
 import styles from './Character.module.css';
 
-interface DocumentationAgentProps {
+interface AgentProps {
   frameCoordinate: string;
 }
 
-const DocumentationAgent = (props: DocumentationAgentProps) => {
+const Agent = (props: AgentProps) => {
   const SpriteImage = useRecoilValue(SpriteImageAtom);
 
   return (
@@ -22,4 +22,4 @@ const DocumentationAgent = (props: DocumentationAgentProps) => {
   );
 }
 
-export default DocumentationAgent;
+export default Agent;

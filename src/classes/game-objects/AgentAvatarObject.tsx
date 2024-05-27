@@ -1,6 +1,7 @@
+import AgentAvatar from "../../components/object-graphics/AgentAvatar";
 import { CELL_SIZE } from "../../utils/constants";
 
-export abstract class AgentAvatarObject {
+export class AgentAvatarObject {
   selected: boolean = false;
   onFocus: boolean = false;
 
@@ -8,13 +9,16 @@ export abstract class AgentAvatarObject {
     public id: string,
     public x: number,
     public y: number,
+    public bodyFrameCoordinate: string,
+    public portraitFrameCoordinate: string,
   ) {
     this.id = id;
     this.x = x;
     this.y = y;
+    this.bodyFrameCoordinate = bodyFrameCoordinate;
+    this.portraitFrameCoordinate = portraitFrameCoordinate;
   }
 
-  abstract renderComponent(): JSX.Element;
 
   displayXY() {
     const x = this.x * 2 * CELL_SIZE;
@@ -32,5 +36,16 @@ export abstract class AgentAvatarObject {
 
   toggleSelection() {
     this.selected = !this.selected;
+  }
+
+  renderComponent() {
+    return <AgentAvatar
+      onFocus={this.onFocus}
+      selected={this.selected}
+      bodyFrameCoordinate={this.bodyFrameCoordinate}
+      portraitFrameCoordinate={this.portraitFrameCoordinate}
+      x={this.x}
+      y={this.y}
+    />
   }
 }

@@ -2,7 +2,7 @@ import Character from '../../components/object-graphics/Character';
 import { DIRECTION_MAP, CELL_SIZE, DIRECTION_RIGHT, DIRECTION_LEFT } from '../../utils/constants';
 import { Collision } from '../Collision';
 import { GameObject, IGameObject } from '../GameObject';
-import { LevelState } from '../LevelState';
+import { MapState } from '../MapState';
 
 /**
  * The main character object, handles most of the game logic.
@@ -17,9 +17,9 @@ export class CharacterObject extends GameObject {
 
   constructor(
     properties: IGameObject,
-    level: LevelState
+    map: MapState
   ) {
-    super(properties, level);
+    super(properties, map);
     this.spriteWalkFrame = 0;
     this.facingDirection = DIRECTION_RIGHT;
   }
@@ -68,15 +68,15 @@ export class CharacterObject extends GameObject {
     const {x, y} = DIRECTION_MAP[direction];
     const nextX = this.x + x;
     const nextY = this.y + y;
-    const isOutOfBound = this.level.isPositionOutOfBound(
+    const isOutOfBound = this.map.isPositionOutOfBound(
       nextX,
       nextY,
     );
     if (isOutOfBound) return false;
 
-    const collision = new Collision(this, this.level, nextX, nextY);
+    const collision = new Collision(this, this.map, nextX, nextY);
     if (collision.isCollision()) return false;
-    if (this.level.conversation) return false;
+    if (this.map.conversation) return false;
     return true;
   }
 
@@ -90,12 +90,12 @@ export class CharacterObject extends GameObject {
     const conversationTarget = this.scanForConversationTarget();
     if (!conversationTarget) return;
     const conversation = conversationTarget.conversation();
-    this.level.conversationAction(conversation!);
+    this.map.conversationAction(conversation!);
     this.actionTriggered = true;
   }
 
   scanForConversationTarget() {
-    const conversationObjects = this.level.gameObjects.filter((object) => {
+    const conversationObjects = this.map.gameObjects.filter((object) => {
       return object.id !== this.id &&
         object.hasConversation === true &&
         (

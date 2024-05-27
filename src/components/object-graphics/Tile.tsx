@@ -7,7 +7,7 @@ const Tile = () => {
 
   return (
     <div>
-      <Sprite frameCoordinate={'0x2'} image={SpriteImage.levelBackgroundImage!} size={16} />
+      <Sprite frameCoordinate={'0x2'} image={SpriteImage.mapBackgroundImage!} size={16} />
     </div>
   );
 }

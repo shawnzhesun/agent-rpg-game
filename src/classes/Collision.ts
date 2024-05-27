@@ -1,17 +1,17 @@
 import { GameObject } from "./GameObject";
-import { LevelState } from "./LevelState";
+import { MapState } from "./MapState";
 
 export class Collision {
   objectsAtPosition: GameObject[]
 
   constructor(
     public forBody: GameObject,
-    public level: LevelState,
+    public map: MapState,
     public x: number | null,
     public y: number | null,
   ) {
     this.forBody = forBody;
-    this.level = level;
+    this.map = map;
     this.x = x ? x : forBody.x;
     this.y = y ? y : forBody.y;
     this.objectsAtPosition = [];
@@ -21,7 +21,7 @@ export class Collision {
   scanObjectAtPosition() {
     const extraWidth = this.forBody.collisionWidth - 1;
     const extraHeight = this.forBody.collisionHeight - 1;
-    this.objectsAtPosition = this.level.gameObjects.filter((object) => {
+    this.objectsAtPosition = this.map.gameObjects.filter((object) => {
       const objectExtraWidth = object.collisionWidth - 1;
       const objectExtraHeight = object.collisionHeight - 1;
       return object.id !== this.forBody.id &&
