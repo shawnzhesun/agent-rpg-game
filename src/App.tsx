@@ -4,6 +4,7 @@ import RenderAgentSelect from './components/agent-select-layout/RenderAgentSelec
 import { CurrentSceneAtom } from './atoms/CurrentSceneAtom';
 import './App.css';
 import { useEffect, useState } from 'react';
+import RenderAgentCreation from './components/agent-creation-layout/RenderAgentCreation';
 
 function App() {
   const currentScene = useRecoilValue(CurrentSceneAtom);
@@ -24,7 +25,7 @@ function App() {
     <div className={`app-container ${transition ? 'fade-out' : 'fade-in'}`}>
       {scene === 'map-scene' && <RenderMap />}
       {scene === 'agent-selection-scene' && <RenderAgentSelect />}
-      {scene !== 'map-scene' && scene !== 'agent-selection-scene' && <div>Unknown scene</div>}
+      {scene === 'agent-creation-scene' && <RenderAgentCreation />}
     </div>
   );
 }

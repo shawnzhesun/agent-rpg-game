@@ -3,6 +3,6 @@ import { AgentAvatarObject } from './AgentAvatarObject';
 
 export class AgentCreationObject extends AgentAvatarObject {
   renderComponent(): JSX.Element {
-    return <AgentCreation onFocus={this.onFocus} frameCoordinate='1x0' />
+    return <AgentCreation onFocus={this.onFocus} selected={this.selected} frameCoordinate='1x0' />
   }
 }

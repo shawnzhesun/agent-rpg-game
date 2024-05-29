@@ -1,5 +1,4 @@
 import { IAgentObject } from '../atoms/AgentsAtom';
-import AgentCreation from '../components/object-graphics/AgentCreation';
 import { ACTION_COMMAND, DIRECTION_COMMAND, DIRECTION_MAP } from '../utils/constants';
 import { GameLoop } from './GameLoop';
 import { KeyController } from './KeyController';

@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 interface AgentConfirmProps {
   onFocus: boolean;
-  selected: boolean
+  selected: boolean;
   frameCoordinate: string;
 }
 

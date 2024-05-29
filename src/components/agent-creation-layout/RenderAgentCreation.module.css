@@ -1,0 +1,126 @@
+.fullScreenContainer {
+  margin-left: -40%;
+  margin-top: -100px;
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: absolute;
+}
+
+.gameScreen {
+  width: var(--game-viewport-width);
+  height: var(--game-viewport-height);
+  transform: scale(var(--pixel-size));
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.agentCreationContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 400px;
+  height: 225px;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.leftPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leftPanel button {
+  margin: 10px;
+}
+
+.agentSelection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.agentConfirmation {
+  display: flex;
+}
+
+.agentPortrait {
+  width: 100px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+}
+
+.righPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.agentDetails {
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.agentDetails input {
+  font-family: 'fontRetroGaming';
+  width: 100%;
+  margin: 10px 0 10px 0;
+  padding: 5px;
+  font-size: 10px;
+  color: gold;
+  outline: none;
+  border: 3px solid rgb(174, 144, 69);
+  box-shadow: 0px 0px 0px 1px rgb(151, 91, 12),
+    inset 0px 0px 0px 1px rgb(60, 35, 2),
+    1px 2px 0px 2px rgb(114, 69, 10);
+  background-color: rgba(80, 70, 52, 0.9);
+}
+
+.agentDetails input::placeholder,
+.agentDetails textarea::placeholder {
+  color: rgba(135, 121, 74, 0.805);
+}
+
+.agentDetails textarea {
+  font-family: 'fontRetroGaming';
+  height: 70px;
+  width: 100%;
+  font-size: 10px;
+  padding: 5px;
+  resize: none;
+  color: gold;
+  outline: none;
+  border: 3px solid rgb(174, 144, 69);
+  box-shadow: 0px 0px 0px 1px rgb(151, 91, 12),
+    inset 0px 0px 0px 1px rgb(60, 35, 2),
+    1px 2px 0px 2px rgb(114, 69, 10);
+  background-color: rgba(80, 70, 52, 0.9);
+}
+
+.agentSkills {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: 'fontRetroGaming';
+  color: white;
+  background-color: rgba(135, 121, 74, 0.3);
+}
+
+.skillItem {
+  margin: 5px;
+}

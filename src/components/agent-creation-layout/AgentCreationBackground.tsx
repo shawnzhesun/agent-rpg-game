@@ -3,13 +3,13 @@ import { SpriteImageAtom } from '../../atoms/SpriteImageAtom';
 import { useRecoilValue } from 'recoil';
 
 
-const AgentSelectBackground = () => {
+const AgentCreationBackground = () => {
   const SpriteImage = useRecoilValue(SpriteImageAtom);
   return (
     <div>
-      <Sprite frameCoordinate='0x0' image={SpriteImage.agentSelectBackgroundImage!} size={400} />
+      <Sprite frameCoordinate='1x0' image={SpriteImage.agentSelectBackgroundImage!} size={400} />
     </div>
   )
 };
 
-export default AgentSelectBackground;
+export default AgentCreationBackground;
