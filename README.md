@@ -1,31 +1,30 @@
-# Agent Character Select
-React components for users to choose agents from a character select screen
+# Agent RPG Game
+<p align="center">
+  <img width='300' src="public/logo.svg">
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h3 align='center'> Create and interact with your agents in a RPG game! </h3>
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+☢ Create your own agents with LLM and skills of your choice
 
-## Expanding the ESLint configuration
+📺 The ability to select the created agents and form a crew
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+🌿 Lightweight
 
-- Configure the top-level `parserOptions` property like this:
+🧬 Can be used with various backends
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+<br/>
+
+## Installation
+```bash
+npm install
 ```
+<br/>
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Development
+```bash
+npm run dev
+```
+<br/>
