@@ -14,7 +14,7 @@ const RenderAgentCreation = () => {
   const [agentDescription, setAgentDescription] = useState('');
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [, setCurrentScene] = useRecoilState(CurrentSceneAtom);
-  const agents = ['Agent1', 'Agent2', 'Agent3']; // Example agent data
+  const agents = ['Agent1', 'Agent2', 'Agent3', 'Agent4', 'Agent5', 'Agent6']; // Example agent data
   const skills = ['Skill1', 'Skill2', 'Skill3', 'Skill4']; // Example skills data
 
   const handlePreviousAgent = () => {
@@ -48,6 +48,12 @@ const RenderAgentCreation = () => {
         <div className={styles.overlay}>
           <div className={styles.agentCreationContainer}>
             <div className={styles.leftPanel}>
+              <input
+                type="text"
+                placeholder="Agent Name"
+                value={agentName}
+                onChange={(e) => setAgentName(e.target.value)}
+              />
               <div className={styles.agentSelection}>
                 <SpriteButton
                   normalFrameCoordinate='8x0'
@@ -90,12 +96,6 @@ const RenderAgentCreation = () => {
             </div>
             <div className={styles.rightPanel}>
               <div className={styles.agentDetails}>
-                <input
-                  type="text"
-                  placeholder="Agent Name"
-                  value={agentName}
-                  onChange={(e) => setAgentName(e.target.value)}
-                />
                 <textarea
                   placeholder="Agent Description"
                   value={agentDescription}
