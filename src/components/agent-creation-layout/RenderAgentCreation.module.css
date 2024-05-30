@@ -74,6 +74,7 @@
 
 .agentConfirmation {
   display: flex;
+  margin-left: -5px;
 }
 
 .agentPortrait {
@@ -114,13 +115,10 @@
 }
 
 .agentSkills {
-  display: flex;
-  flex-wrap: wrap;
-  font-family: 'fontRetroGaming';
-  color: white;
-  background-color: rgba(135, 121, 74, 0.3);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .skillItem {
-  margin: 5px;
+  display: flex;
 }

@@ -12,10 +12,14 @@ const RenderAgentCreation = () => {
   const [currentAgentIndex, setCurrentAgentIndex] = useState(0);
   const [agentName, setAgentName] = useState('');
   const [agentDescription, setAgentDescription] = useState('');
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [, setSelectedSkills] = useState<string[]>([]);
   const [, setCurrentScene] = useRecoilState(CurrentSceneAtom);
   const agents = ['Agent1', 'Agent2', 'Agent3', 'Agent4', 'Agent5', 'Agent6']; // Example agent data
-  const skills = ['Skill1', 'Skill2', 'Skill3', 'Skill4']; // Example skills data
+  const skills = [
+    'Skill1', 'Skill2', 'Skill3', 'Skill4',
+    'Skill5', 'Skill6', 'Skill7', 'Skill8',
+    'Skill9', 'Skill10', 'Skill11', 'Skill12'
+  ]; // Example skills data
 
   const handlePreviousAgent = () => {
     setCurrentAgentIndex((prevIndex) => (prevIndex - 1 + agents.length) % agents.length);
@@ -77,20 +81,20 @@ const RenderAgentCreation = () => {
               </div>
               <div className={styles.agentConfirmation}>
                 <SpriteButton
-                  normalFrameCoordinate='2x0'
-                  hoverFrameCoordinate='3x0'
-                  activeFrameCoordinate='4x0'
-                  image={SpriteImage.buttonImage!}
-                  size={32}
-                  onClick={handleCreationConfirmation}
-                />
-                <SpriteButton
                   normalFrameCoordinate='5x0'
                   hoverFrameCoordinate='6x0'
                   activeFrameCoordinate='7x0'
                   image={SpriteImage.buttonImage!}
                   size={32}
                   onClick={handleGoBack}
+                />
+                <SpriteButton
+                  normalFrameCoordinate='2x0'
+                  hoverFrameCoordinate='3x0'
+                  activeFrameCoordinate='4x0'
+                  image={SpriteImage.buttonImage!}
+                  size={32}
+                  onClick={handleCreationConfirmation}
                 />
               </div>
             </div>
@@ -103,15 +107,16 @@ const RenderAgentCreation = () => {
                 />
               </div>
               <div className={styles.agentSkills}>
-                {skills.map((skill) => (
+                {skills.map((skill, index) => (
                   <div key={skill} className={styles.skillItem}>
-                    <input
-                      type="checkbox"
-                      id={skill}
-                      checked={selectedSkills.includes(skill)}
-                      onChange={() => handleSkillToggle(skill)}
+                    <SpriteButton
+                      normalFrameCoordinate={`${14+index}x0`}
+                      hoverFrameCoordinate={`${14+index}x0`}
+                      activeFrameCoordinate={`${14+index}x0`}
+                      image={SpriteImage.buttonImage!}
+                      size={32}
+                      onClick={() => handleSkillToggle(skill)}
                     />
-                    <label htmlFor={skill}>{skill}</label>
                   </div>
                 ))}
               </div>
