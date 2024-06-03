@@ -24,7 +24,25 @@ npm install
 <br/>
 
 ## Development
-```bash
-npm run dev
-```
+
+> [!TIP]
+> For development purpose, use the default demo back-end server to see the end-to-end working demo application. For production, feel free to use any back-end server of your choice.
+
+**Configure the OpenAI API Key**:
+
+  ```bash
+  export OPEN_API_KEY=<***Your API Key***>
+  ```
+
+**Start the back-end server**, run this command:
+
+  ```bash
+  npm run server
+  ```
+
+**Start the React UI**, run this command:
+
+  ```bash
+  npm run dev
+  ```
 <br/>
