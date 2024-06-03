@@ -47,6 +47,27 @@ const prompt = ChatPromptTemplate.fromMessages([
   new MessagesPlaceholder("agent_scratchpad"),
 ]);
 
+// Initiate 3 default agents
+const defaultAgents = ['doc-agent', 'eng-agent', 'data-agent'];
+(async () => {
+  for (const agentId of defaultAgents) {
+    const agent = await createOpenAIToolsAgent({
+      llm,
+      tools,
+      prompt,
+    });
+    const executor = new AgentExecutor({
+      agent,
+      tools,
+    });
+    agents[agentId] = {
+      agent: agent,
+      executor: executor,
+      history: [],
+    };
+  }
+})();
+
 app.post('/create-agent', async (req, res) => {
   const { id } = req.body;
 
