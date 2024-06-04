@@ -1,6 +1,7 @@
 export interface Message {
   role: string;
   content: string;
+  needUserInput?: boolean;
 }
 
 export class Conversation {
@@ -12,6 +13,13 @@ export class Conversation {
   ) {
     this.role = role;
     this.messages = messages || [];
+  }
+
+  currentMessage() {
+    if (!this.messages || this.messages.length === 0) {
+      return null;
+    }
+    return this.messages[this.currentIndex];
   }
 
   nextMessage() {

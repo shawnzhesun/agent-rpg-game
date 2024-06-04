@@ -2,6 +2,7 @@ import { DIRECTION_LEFT, DIRECTION_DOWN, DIRECTION_RIGHT, DIRECTION_UP, ACTION_C
 
 export class KeyController {
   heldKeys: string[];
+  registered: boolean = false;
   keyDownHandler: (event: KeyboardEvent) => void;
   keyUpHandler: (event: KeyboardEvent) => void;
 
@@ -23,18 +24,22 @@ export class KeyController {
         this.heldKeys.splice(keyIndex, 1);
       }
     }
-
-    document.addEventListener('keydown', this.keyDownHandler);
-    document.addEventListener('keyup', this.keyUpHandler);
   }
 
   get lastHeldKey() {
     return this.heldKeys[0];
   }
 
-  unbind() {
+  register() {
+    document.addEventListener('keydown', this.keyDownHandler);
+    document.addEventListener('keyup', this.keyUpHandler);
+    this.registered = true;
+  }
+
+  unregister() {
     document.removeEventListener('keydown', this.keyDownHandler);
     document.removeEventListener('keyup', this.keyUpHandler);
+    this.registered = false;
   }
 
   commandFromKey(keyName: string): string | null {

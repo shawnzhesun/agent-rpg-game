@@ -31,10 +31,7 @@ export class AgentObject extends GameObject {
         {
           role: this.id,
           content: 'Hi there! How can I help you today?',
-        },
-        {
-          role: 'character',
-          content: 'Hi!',
+          needUserInput: true,
         },
       ]
     );

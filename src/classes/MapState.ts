@@ -8,6 +8,7 @@ import { Conversation } from './Conversation';
 import { IAgentObject } from '../atoms/AgentsAtom';
 import { AgentObject } from './game-objects/AgentObject';
 import { TileObject } from './game-objects/TileObject';
+import { playSound } from '../utils/audio';
 
 export type IMapState = {
   tileWidth: number;
@@ -40,6 +41,7 @@ export class MapState implements IMapState {
       return new AgentObject(agent, this, agent.gameFrameCoordiante, agent.name);
     }));
     this.keyController = new KeyController();
+    this.keyController.register();
     this.gameLoop = new GameLoop(() => {
       this.tick();
     });
@@ -84,7 +86,11 @@ export class MapState implements IMapState {
     if (this.activeConversation?.role === conversation.role) {
       // The requested conversation is still in progress
       const nextMessage = this.activeConversation.nextMessage();
-      if (nextMessage === null) {
+      const currentMessage = this.activeConversation.currentMessage();
+      if (currentMessage?.needUserInput) {
+        this.keyController.unregister();
+        this.userInput();
+      } else if (nextMessage === null) {
         this.activeConversation = undefined;
         this.updateTextBoxContent('');
       } else if (nextMessage) {
@@ -92,6 +98,7 @@ export class MapState implements IMapState {
       }
     } else {
       // Start a new conversation
+      playSound('conversation');
       this.activeConversation = conversation;
       const nextMessage = this.activeConversation.nextMessage();
       if (nextMessage) {
@@ -105,10 +112,20 @@ export class MapState implements IMapState {
       this.textBoxRef.updateContent(newContent);
       this.onEmit(this.getState());
     }
+    if (!this.keyController.registered) {
+      this.keyController.register();
+    }
+  }
+
+  userInput() {
+    if (this.textBoxRef) {
+      this.textBoxRef.requestUserInput();
+      this.onEmit(this.getState());
+    }
   }
 
   destroy() {
     this.gameLoop.stop();
-    this.keyController.unbind();
+    this.keyController.unregister();
   }
 }

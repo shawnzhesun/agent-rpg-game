@@ -28,8 +28,9 @@ function App() {
         {scene === 'agent-selection-scene' && <RenderAgentSelect />}
         {scene === 'agent-creation-scene' && <RenderAgentCreation />}
       </div>
-      <audio id="ui-switch" src="/audio/ui-switch.wav"></audio>
-      <audio id="ui-select" src="/audio/ui-select.wav"></audio>
+      <audio id='ui-switch' src='/audio/ui-switch.wav'></audio>
+      <audio id='ui-select' src='/audio/ui-select.wav'></audio>
+      <audio id='conversation' src='/audio/conversation.wav'></audio>
     </>
   );
 }

@@ -17,3 +17,40 @@
   overflow-y: scroll;
   overflow-wrap: break-word;
 }
+
+.textBoxInput {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  color: white;
+  font-family: 'fontRetroGaming';
+  font-size: 9px;
+  max-width: 239px;
+  height: 58px;
+  overflow-y: scroll;
+  overflow-wrap: break-word;
+  resize: none;
+  color: lightblue;
+  outline: none;
+  background-color: transparent;
+  border: none;
+}
+
+.textBoxButton {
+  position: absolute;
+  left: 200px;
+  top: 35px;
+  color: brown;
+  height: 20px;
+  width: 40px;
+  font-family: 'fontRetroGaming';
+  font-size: 7px;
+  overflow-y: scroll;
+  overflow-wrap: break-word;
+  resize: none;
+}
+
+.textBoxButton:hover {
+  background-color: goldenrod;
+  color: white
+}

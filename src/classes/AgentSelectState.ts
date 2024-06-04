@@ -45,6 +45,7 @@ export class AgentSelectState implements IAgentSelectState {
     this.agents.push(new AgentCreationObject('agent-creation', this.selectionTileWidth, 0, '', ''));
     this.agents.push(new AgentConfirmObject('agent-confirm', this.selectionTileWidth, 1, '', ''));
     this.keyController = new KeyController();
+    this.keyController.register();
     this.gameLoop = new GameLoop(() => {
       this.tick();
     });
@@ -77,7 +78,7 @@ export class AgentSelectState implements IAgentSelectState {
 
   destroy() {
     this.gameLoop.stop();
-    this.keyController.unbind();
+    this.keyController.unregister();
   }
 }
 
