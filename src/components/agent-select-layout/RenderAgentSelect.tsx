@@ -89,8 +89,6 @@ const RenderAgentSelect = () => {
           <AgentSelectBackground />
         </div>
       </div>
-      <audio id="ui-switch" src="/audio/ui-switch.wav"></audio>
-      <audio id="ui-select" src="/audio/ui-select.wav"></audio>
     </>
   );
 };

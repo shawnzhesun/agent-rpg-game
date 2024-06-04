@@ -1,4 +1,5 @@
 import { IAgentObject } from '../atoms/AgentsAtom';
+import { playSound } from '../utils/audio';
 import { ACTION_COMMAND, DIRECTION_COMMAND, DIRECTION_MAP } from '../utils/constants';
 import { GameLoop } from './GameLoop';
 import { KeyController } from './KeyController';
@@ -104,11 +105,7 @@ class SelectCursor {
       nextAgent?.focus();
     }
     this.commandTriggered = true;
-    const switchSoundEl = (document.getElementById('ui-switch') as HTMLAudioElement);
-    if (switchSoundEl) {
-      switchSoundEl.currentTime = 0;
-      switchSoundEl.play();
-    }
+    playSound('ui-switch', true);
   }
 
   stopMoving() {

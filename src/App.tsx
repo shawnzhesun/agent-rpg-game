@@ -22,11 +22,15 @@ function App() {
   }, [currentScene]);
 
   return (
-    <div className={`app-container ${transition ? 'fade-out' : 'fade-in'}`}>
-      {scene === 'map-scene' && <RenderMap />}
-      {scene === 'agent-selection-scene' && <RenderAgentSelect />}
-      {scene === 'agent-creation-scene' && <RenderAgentCreation />}
-    </div>
+    <>
+      <div className={`app-container ${transition ? 'fade-out' : 'fade-in'}`}>
+        {scene === 'map-scene' && <RenderMap />}
+        {scene === 'agent-selection-scene' && <RenderAgentSelect />}
+        {scene === 'agent-creation-scene' && <RenderAgentCreation />}
+      </div>
+      <audio id="ui-switch" src="/audio/ui-switch.wav"></audio>
+      <audio id="ui-select" src="/audio/ui-select.wav"></audio>
+    </>
   );
 }
 

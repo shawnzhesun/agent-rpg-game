@@ -4,6 +4,7 @@ import { SpriteImageAtom } from '../../atoms/SpriteImageAtom';
 import styles from './AgentAvatar.module.css';
 import { CurrentSceneAtom } from '../../atoms/CurrentSceneAtom';
 import { useEffect } from 'react';
+import { playSound } from '../../utils/audio';
 
 interface AgentConfirmProps {
   onFocus: boolean;
@@ -17,10 +18,7 @@ const AgentConfirm = (props: AgentConfirmProps) => {
 
   useEffect(() => {
     if (props.selected) {
-      const soundEl = (document.getElementById('ui-select') as HTMLAudioElement);
-      if (soundEl) {
-        soundEl.play();
-      }
+      playSound('ui-select');
       setCurrentScene(prev => ({...prev, currentSceneId: 'map-scene'}));
     }
   }, [props.selected, setCurrentScene]);
