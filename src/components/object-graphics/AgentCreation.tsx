@@ -17,6 +17,10 @@ const AgentCreation = (props: AgentCreationProps) => {
 
   useEffect(() => {
     if (props.selected) {
+      const soundEl = (document.getElementById('ui-select') as HTMLAudioElement);
+      if (soundEl) {
+        soundEl.play();
+      }
       setCurrentScene(prev => ({...prev, currentSceneId: 'agent-creation-scene'}));
     }
   }, [props.selected, setCurrentScene]);

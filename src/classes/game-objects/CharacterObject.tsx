@@ -76,7 +76,7 @@ export class CharacterObject extends GameObject {
 
     const collision = new Collision(this, this.map, nextX, nextY);
     if (collision.isCollision()) return false;
-    if (this.map.conversation) return false;
+    if (this.map.activeConversation) return false;
     return true;
   }
 

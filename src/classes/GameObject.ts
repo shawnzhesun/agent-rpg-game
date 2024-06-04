@@ -4,7 +4,6 @@ import { MapState } from "./MapState";
 
 export interface IGameObject {
   id: string;
-  type: string;
   x: number;
   y: number;
 }

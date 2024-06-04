@@ -82,12 +82,16 @@ const RenderAgentSelect = () => {
   }
 
   return (
-    <div className={styles.fullScreenContainer} style={{ background: '#222222' }}>
-      <div className={styles.gameScreen}>
-        <AgentTilePlacement placements={selectState.agents} />
-        <AgentSelectBackground />
+    <>
+      <div className={styles.fullScreenContainer} style={{ background: '#222222' }}>
+        <div className={styles.gameScreen}>
+          <AgentTilePlacement placements={selectState.agents} />
+          <AgentSelectBackground />
+        </div>
       </div>
-    </div>
+      <audio id="ui-switch" src="/audio/ui-switch.wav"></audio>
+      <audio id="ui-select" src="/audio/ui-select.wav"></audio>
+    </>
   );
 };
 

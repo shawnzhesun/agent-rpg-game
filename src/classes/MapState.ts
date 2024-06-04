@@ -1,12 +1,13 @@
 import { KeyController } from './KeyController';
 import { GameLoop } from './GameLoop';
 import { GameObject } from './GameObject';
-import { GameObjectFactory } from './GameObjectFactory';
 import { CharacterObject } from './game-objects/CharacterObject';
 import { ACTION_COMMAND, DIRECTION_COMMAND } from '../utils/constants';
 import { TextBoxObject } from './game-objects/TextBoxObject';
 import { Conversation } from './Conversation';
 import { IAgentObject } from '../atoms/AgentsAtom';
+import { AgentObject } from './game-objects/AgentObject';
+import { TileObject } from './game-objects/TileObject';
 
 export type IMapState = {
   tileWidth: number;
@@ -22,26 +23,21 @@ export class MapState implements IMapState {
   gameLoop: GameLoop;
   characterRef: CharacterObject;
   textBoxRef: TextBoxObject;
-  conversation?: Conversation;
+  activeConversation?: Conversation;
 
   constructor(
     public agentList: IAgentObject[],
     public onEmit: (newState: IMapState) => void
   ) {
-    const gameObjectFactory = new GameObjectFactory();
     this.onEmit = onEmit;
     this.tileWidth = 20;
     this.tileHeight = 12;
-    const nonAgentObjects = [
-      { id: 'tile1', type: 'tile', x: 3, y: 6},
-      { id: 'tile2', type: 'tile', x: 6, y: 6},
-      { id: 'character1', type: 'character', x: 1, y: 1},
-      { id: 'text-box', type: 'text-box', x: 1, y: 15, content: ''},
-    ];
-    this.gameObjects = nonAgentObjects.map(o => {
-      return gameObjectFactory.createObject(o, this, '');
-    }).concat(agentList.map(agent => {
-      return gameObjectFactory.createObject(agent, this, agent.gameFrameCoordiante);
+    this.gameObjects = [
+      new CharacterObject({ id: 'character1', x: 1, y: 1}, this),
+      new TextBoxObject({ id: 'text-box', x: 1, y: 15, content: ''}, this),
+      new TileObject({ id: 'tile1', x: 3, y: 6}, this),
+    ].concat(agentList.map(agent => {
+      return new AgentObject(agent, this, agent.gameFrameCoordiante, agent.name);
     }));
     this.keyController = new KeyController();
     this.gameLoop = new GameLoop(() => {
@@ -85,19 +81,19 @@ export class MapState implements IMapState {
   }
 
   conversationAction(conversation: Conversation) {
-    if (this.conversation?.id === conversation.id) {
-      // The requested conversation is in progress
-      const nextMessage = this.conversation.nextMessage();
+    if (this.activeConversation?.role === conversation.role) {
+      // The requested conversation is still in progress
+      const nextMessage = this.activeConversation.nextMessage();
       if (nextMessage === null) {
-        this.conversation = undefined;
+        this.activeConversation = undefined;
         this.updateTextBoxContent('');
       } else if (nextMessage) {
         this.updateTextBoxContent(nextMessage);
       }
     } else {
       // Start a new conversation
-      this.conversation = conversation;
-      const nextMessage = this.conversation.nextMessage();
+      this.activeConversation = conversation;
+      const nextMessage = this.activeConversation.nextMessage();
       if (nextMessage) {
         this.updateTextBoxContent(nextMessage);
       }

@@ -7,11 +7,9 @@ export class Conversation {
   currentIndex: number = -1;
 
   constructor(
-    public id: string,
     public role: string,
     public messages?: Message[],
   ) {
-    this.id = id;
     this.role = role;
     this.messages = messages || [];
   }

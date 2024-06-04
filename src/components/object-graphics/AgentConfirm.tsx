@@ -17,6 +17,10 @@ const AgentConfirm = (props: AgentConfirmProps) => {
 
   useEffect(() => {
     if (props.selected) {
+      const soundEl = (document.getElementById('ui-select') as HTMLAudioElement);
+      if (soundEl) {
+        soundEl.play();
+      }
       setCurrentScene(prev => ({...prev, currentSceneId: 'map-scene'}));
     }
   }, [props.selected, setCurrentScene]);

@@ -104,6 +104,11 @@ class SelectCursor {
       nextAgent?.focus();
     }
     this.commandTriggered = true;
+    const switchSoundEl = (document.getElementById('ui-switch') as HTMLAudioElement);
+    if (switchSoundEl) {
+      switchSoundEl.currentTime = 0;
+      switchSoundEl.play();
+    }
   }
 
   stopMoving() {

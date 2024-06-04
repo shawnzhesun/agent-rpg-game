@@ -4,39 +4,37 @@ import { GameObject, IGameObject } from '../GameObject';
 import { MapState } from '../MapState';
 
 export class AgentObject extends GameObject {
-  type= 'agent';
-  frameCoordinate: string;
+  type = 'agent';
   collisionWidth = 2;
   collisionHeight = 1;
   hasConversation = true;
+  frameCoordinate: string;
+  name: string;
 
   constructor(
     properties: IGameObject,
     map: MapState,
     frameCoordinate: string,
+    name: string,
   ) {
     super(properties, map);
     this.frameCoordinate = frameCoordinate;
+    this.name = name;
   }
 
   tick() {}
 
   conversation(): Conversation {
     return new Conversation(
-      'documentation',
-      'documentation-agent',
+      this.id,
       [
         {
-          role: 'documentation-agent',
-          content: 'Hi there! I am the documentation agent. I can help you with your questions.',
+          role: this.id,
+          content: 'Hi there! How can I help you today?',
         },
         {
           role: 'character',
-          content: 'Hi! I have a question about the game.',
-        },
-        {
-          role: 'documentation-agent',
-          content: 'Sure! What would you like to know?',
+          content: 'Hi!',
         },
       ]
     );
