@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import Sprite from './Sprite';
 import { SpriteImageAtom } from '../../atoms/SpriteImageAtom';
@@ -11,7 +11,12 @@ interface TextBoxWithInputProps {
 const TextBoxWithInput = (props: TextBoxWithInputProps) => {
   const SpriteImage = useRecoilValue(SpriteImageAtom);
   const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
+  const handleSubmit = () => {
+    props.onSubmit(inputValue);
+    setIsLoading(true);
+  };
 
   return (
     <div className={styles.textBox}>
@@ -19,9 +24,10 @@ const TextBoxWithInput = (props: TextBoxWithInputProps) => {
         autoFocus
         className={styles.textBoxInput}
         value={inputValue}
+        disabled={isLoading}
         onChange={(e) => setInputValue(e.target.value)}
       />
-      <button className={styles.textBoxButton} onClick={() => props.onSubmit(inputValue)}>Send</button>
+      <button className={styles.textBoxButton} onClick={handleSubmit}>{isLoading ? '...' : 'Send'}</button>
       <Sprite frameCoordinate={'0x0'} image={SpriteImage.textBoxImage!} size={256} />
     </div>
   );

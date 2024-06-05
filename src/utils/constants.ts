@@ -7,6 +7,7 @@ export const DIRECTION_DOWN: string = 'down';
 
 export const DIRECTION_COMMAND: string[] = [DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_UP, DIRECTION_RIGHT]
 export const ACTION_COMMAND: string = 'action';
+export const CANCEL_COMMAND: string = 'cancel';
 
 export const DIRECTION_MAP = {
   [DIRECTION_LEFT]: { x: -1, y: 0 },

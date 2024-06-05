@@ -1,4 +1,4 @@
-import { DIRECTION_LEFT, DIRECTION_DOWN, DIRECTION_RIGHT, DIRECTION_UP, ACTION_COMMAND } from "../utils/constants";
+import { DIRECTION_LEFT, DIRECTION_DOWN, DIRECTION_RIGHT, DIRECTION_UP, ACTION_COMMAND, CANCEL_COMMAND } from "../utils/constants";
 
 export class KeyController {
   heldKeys: string[];
@@ -59,6 +59,8 @@ export class KeyController {
       case ' ':
       case 'Enter':
           return ACTION_COMMAND;
+      case 'Escape':
+        return CANCEL_COMMAND;
       default:
         return null;
     }

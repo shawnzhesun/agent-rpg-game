@@ -35,15 +35,18 @@ export class TextBoxObject extends GameObject {
     this.userInput = true;
   }
 
-  submitUserInput(inputValue: string) {
-    console.log('User input:', inputValue);
+  dismissUserInput() {
+    this.userInput = false;
+  }
+
+  async submitUserInput(inputValue: string) {
     const activeConversation = this.map.activeConversation;
     if (!activeConversation) throw new Error('No active conversation');
     activeConversation.messages?.push({
       role: 'character',
       content: inputValue,
     });
-    this.userInput = false;
+    activeConversation.nextMessage();
     this.map.conversationAction(this.map.activeConversation!);
   }
 }

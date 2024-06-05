@@ -1,8 +1,9 @@
+import axios from 'axios';
 import { KeyController } from './KeyController';
 import { GameLoop } from './GameLoop';
 import { GameObject } from './GameObject';
 import { CharacterObject } from './game-objects/CharacterObject';
-import { ACTION_COMMAND, DIRECTION_COMMAND } from '../utils/constants';
+import { ACTION_COMMAND, CANCEL_COMMAND, DIRECTION_COMMAND } from '../utils/constants';
 import { TextBoxObject } from './game-objects/TextBoxObject';
 import { Conversation } from './Conversation';
 import { IAgentObject } from '../atoms/AgentsAtom';
@@ -54,7 +55,10 @@ export class MapState implements IMapState {
       this.characterRef.actionRequested();
     } else if (this.keyController.lastHeldKey && DIRECTION_COMMAND.includes(this.keyController.lastHeldKey)) {
       this.characterRef.controlRequested(this.keyController.lastHeldKey);
-    } else {
+    } else if (this.keyController.lastHeldKey && this.keyController.lastHeldKey === CANCEL_COMMAND) {
+      this.clearConversation();
+    }
+    else {
       this.characterRef.stopRequested();
     }
 
@@ -85,16 +89,20 @@ export class MapState implements IMapState {
   conversationAction(conversation: Conversation) {
     if (this.activeConversation?.role === conversation.role) {
       // The requested conversation is still in progress
-      const nextMessage = this.activeConversation.nextMessage();
       const currentMessage = this.activeConversation.currentMessage();
       if (currentMessage?.needUserInput) {
         this.keyController.unregister();
         this.userInput();
-      } else if (nextMessage === null) {
-        this.activeConversation = undefined;
-        this.updateTextBoxContent('');
-      } else if (nextMessage) {
-        this.updateTextBoxContent(nextMessage);
+      } else if (currentMessage?.role === 'character') {
+        this.talkToAgent(conversation.role);
+      } else {
+        const nextMessage = this.activeConversation.nextMessage();
+        if (nextMessage === null || !nextMessage.needUserInput) {
+          this.activeConversation = undefined;
+          this.updateTextBoxContent('');
+        } else if (nextMessage) {
+          this.updateTextBoxContent(`${nextMessage.role}: ${nextMessage.content}`);
+        }
       }
     } else {
       // Start a new conversation
@@ -102,13 +110,16 @@ export class MapState implements IMapState {
       this.activeConversation = conversation;
       const nextMessage = this.activeConversation.nextMessage();
       if (nextMessage) {
-        this.updateTextBoxContent(nextMessage);
+        this.updateTextBoxContent(`${nextMessage.role}: ${nextMessage.content}`);
       }
     }
   }
 
   updateTextBoxContent(newContent: string) {
     if (this.textBoxRef) {
+      if (this.textBoxRef.userInput) {
+        this.textBoxRef.dismissUserInput();
+      }
       this.textBoxRef.updateContent(newContent);
       this.onEmit(this.getState());
     }
@@ -121,6 +132,40 @@ export class MapState implements IMapState {
     if (this.textBoxRef) {
       this.textBoxRef.requestUserInput();
       this.onEmit(this.getState());
+    }
+  }
+
+  talkToAgent(agentId: string) {
+    const currentMessage = this.activeConversation?.currentMessage();
+    if (!currentMessage || currentMessage.role !== 'character') {
+      throw new Error('Invalid role requesting chatting to agents');
+    }
+    const sendMessage = async (id: string, message: string) => {
+      try {
+        const { data } = await axios.post(`http://localhost:3000/chat/${id}`, {
+          message,
+        });
+        if (data && data.response) {
+          this.activeConversation?.messages?.push({
+            role: agentId,
+            content: data.response,
+            needUserInput: this.activeConversation.messages.length < this.activeConversation?.messageLengthLimit,
+          });
+          console.log(data.response);
+          this.activeConversation?.nextMessage();
+          this.updateTextBoxContent(`${agentId}: ${data.response}`);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    sendMessage(agentId, currentMessage.content);
+  }
+
+  clearConversation() {
+    if (this.activeConversation) {
+      this.activeConversation = undefined;
+      this.updateTextBoxContent('');
     }
   }
 

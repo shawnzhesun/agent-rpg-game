@@ -5,12 +5,14 @@ import { ChatOpenAI } from '@langchain/openai';
 import { AIMessage, HumanMessage } from '@langchain/core/messages';
 import { ChatPromptTemplate, MessagesPlaceholder } from '@langchain/core/prompts';
 import { DynamicTool, DynamicStructuredTool } from '@langchain/core/tools';
+import cors from 'cors';
 
 
 const app = express();
 const port = 3000;
 
 app.use(json());
+app.use(cors());
 
 const agents = {};
 

@@ -6,6 +6,7 @@ export interface Message {
 
 export class Conversation {
   currentIndex: number = -1;
+  messageLengthLimit: number = 6;
 
   constructor(
     public role: string,
@@ -32,7 +33,6 @@ export class Conversation {
     if (this.currentIndex < this.messages.length - 1) {
       this.currentIndex++;
     }
-    const msg = this.messages[this.currentIndex];
-    return `${msg.role}: ${msg.content}`;
+    return this.messages[this.currentIndex];
   }
 }
