@@ -15,6 +15,7 @@ html, body {
   height: 100vh;
   overflow: hidden;
   margin: 0;
+  cursor: url('custom-mouse.png'), auto;
 }
 
 canvas {
@@ -45,4 +46,9 @@ canvas {
 @font-face {
   font-family: fontRetroGaming;
   src: url('fonts/Retro Gaming.ttf');
+}
+
+input:hover,
+textarea:hover {
+  cursor: url('custom-text.png'), auto;
 }

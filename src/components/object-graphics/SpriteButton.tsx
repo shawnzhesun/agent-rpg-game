@@ -45,7 +45,7 @@ const SpriteButton = (props: SpriteButtonProps) => {
 
   return (
     <div
-      style={{width: size, height: size, display: 'inline-block', zIndex: 1}}
+      style={{width: size, height: size, display: 'inline-block', zIndex: 1, cursor: 'url("custom-pointer.png"), auto'}}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseDown={handleMouseDown}
