@@ -71,7 +71,7 @@
   font-family: 'fontRetroGaming';
   width: 100%;
   padding: 5px;
-  font-size: 10px;
+  font-size: 8px;
   color: gold;
   outline: none;
   border: 3px solid rgb(174, 144, 69);
@@ -132,7 +132,7 @@
 
 .agentSkills {
   display: grid;
-  width: 30%;
+  width: 40%;
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -149,13 +149,7 @@
 
 .modelSelection {
   display: flex;
-  width: 70%;
+  width: 60%;
   justify-content: space-between;
-  align-items: center;
-}
-
-.modelNameContainer {
-  display: flex;
-  flex-direction: row;
   align-items: center;
 }

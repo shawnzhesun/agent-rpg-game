@@ -1,0 +1,40 @@
+.statsBarContainer {
+  width: 100%;
+  margin: 10px 0;
+  border: 3px solid rgb(174, 144, 69);
+  box-shadow: 0px 0px 0px 1px rgb(151, 91, 12),
+    inset 0px 0px 0px 1px rgb(60, 35, 2),
+    1px 2px 0px 2px rgb(114, 69, 10);
+  background-color: rgba(80, 70, 52, 0.9);
+}
+
+.statsBarRow {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.statsBarText {
+  font-family: 'fontRetroGaming';
+  flex: 1;
+  font-size: 8px;
+  color: gold;
+}
+
+.statsBarBars {
+  display: flex;
+}
+
+.statsBar {
+  width: 20px;
+  height: 5px;
+  margin-right: 5px;
+}
+
+.solid {
+  background-color: gold;
+}
+
+.outlined {
+  border: 1px solid gold;
+}

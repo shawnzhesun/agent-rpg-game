@@ -6,6 +6,7 @@ import { SpriteImageAtom } from '../../atoms/SpriteImageAtom';
 import Sprite from '../object-graphics/Sprite';
 import SpriteButton from '../object-graphics/SpriteButton';
 import { CurrentSceneAtom } from '../../atoms/CurrentSceneAtom';
+import AgentStatsComponent from '../agent-stats/AgentStatsComponent';
 
 const RenderAgentCreation = () => {
   const SpriteImage = useRecoilValue(SpriteImageAtom);
@@ -108,28 +109,7 @@ const RenderAgentCreation = () => {
               </div>
               <div className={styles.statsSelectionContainer}>
                 <div className={styles.modelSelection}>
-                  <div className={styles.modelNameContainer}>
-                    <SpriteButton
-                      normalFrameCoordinate='8x0'
-                      hoverFrameCoordinate='9x0'
-                      activeFrameCoordinate='10x0'
-                      image={SpriteImage.buttonImage!}
-                      size={32}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Agent Name"
-                      value={agentName}
-                      onChange={(e) => setAgentName(e.target.value)}
-                    />
-                    <SpriteButton
-                      normalFrameCoordinate='11x0'
-                      hoverFrameCoordinate='12x0'
-                      activeFrameCoordinate='13x0'
-                      image={SpriteImage.buttonImage!}
-                      size={32}
-                    />
-                  </div>
+                  <AgentStatsComponent />
                 </div>
                 <div className={styles.agentSkills}>
                   {skills.map((skill, index) => (
