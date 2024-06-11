@@ -14,3 +14,9 @@
   top: -44px;
   opacity: 0.5;
 }
+
+.characterSpeechBubble {
+  position: absolute;
+  left: 0px;
+  top: -65px;
+}
