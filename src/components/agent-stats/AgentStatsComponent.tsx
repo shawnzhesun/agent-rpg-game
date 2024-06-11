@@ -5,11 +5,21 @@ import styles from './AgentStatsComponent.module.css';
 import { useState } from "react";
 import StatsBar from "../stats-bar/StatsBar";
 
+export interface IModelStats {
+  text: string;
+  bars: number;
+}
+
+export interface IModelInfo {
+  modelName: string;
+  stats: IModelStats[];
+}
+
 const AgentStatsComponent = () => {
   const SpriteImage = useRecoilValue(SpriteImageAtom);
-  const [modelName, setModelName] = useState('');
+  const [modelName, setModelName] = useState('GPT-4');
 
-  const modelStats = [
+  const modelInfo: IModelInfo[] = [
     {
       modelName: 'GPT-4',
       stats: [
@@ -97,7 +107,7 @@ const AgentStatsComponent = () => {
     },
   ];
 
-  const modelNames = modelStats.map((model) => model.modelName);
+  const modelNames = modelInfo.map((model) => model.modelName);
 
   const handlePreviousModel = () => {
     setModelName((prevModel) => modelNames[(modelNames.indexOf(prevModel) - 1 + modelNames.length) % modelNames.length]);
@@ -133,7 +143,7 @@ const AgentStatsComponent = () => {
         onClick={handleNextModel}
       />
     </div>
-    <StatsBar data={modelStats.find((model) => model.modelName === modelName)?.stats} />
+    <StatsBar modelStats={modelInfo.find((model) => model.modelName === modelName)?.stats} />
     </div>
   );
 }

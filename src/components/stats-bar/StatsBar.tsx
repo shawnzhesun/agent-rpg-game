@@ -1,9 +1,14 @@
+import { IModelStats } from '../agent-stats/AgentStatsComponent';
 import styles from './StatsBar.module.css';
 
-const StatsBar = (props: any) => {
+interface StatsBarProps {
+  modelStats: IModelStats[] | undefined;
+}
+
+const StatsBar = (props: StatsBarProps) => {
   return (
     <div className={styles.statsBarContainer}>
-      {props.data?.map((item: any, index: any) => (
+      {props.modelStats?.map((item: IModelStats, index: number) => (
         <div key={index} className={styles.statsBarRow}>
           <span className={styles.statsBarText}>{item.text}</span>
           <div className={styles.statsBarBars}>
