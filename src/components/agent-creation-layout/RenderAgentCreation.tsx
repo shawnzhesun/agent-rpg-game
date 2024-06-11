@@ -106,19 +106,45 @@ const RenderAgentCreation = () => {
                   onChange={(e) => setAgentDescription(e.target.value)}
                 />
               </div>
-              <div className={styles.agentSkills}>
-                {skills.map((skill, index) => (
-                  <div key={skill} className={styles.skillItem}>
+              <div className={styles.statsSelectionContainer}>
+                <div className={styles.modelSelection}>
+                  <div className={styles.modelNameContainer}>
                     <SpriteButton
-                      normalFrameCoordinate={`${14+index}x0`}
-                      hoverFrameCoordinate={`${14+index}x0`}
-                      activeFrameCoordinate={`${14+index}x0`}
+                      normalFrameCoordinate='8x0'
+                      hoverFrameCoordinate='9x0'
+                      activeFrameCoordinate='10x0'
                       image={SpriteImage.buttonImage!}
                       size={32}
-                      onClick={() => handleSkillToggle(skill)}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Agent Name"
+                      value={agentName}
+                      onChange={(e) => setAgentName(e.target.value)}
+                    />
+                    <SpriteButton
+                      normalFrameCoordinate='11x0'
+                      hoverFrameCoordinate='12x0'
+                      activeFrameCoordinate='13x0'
+                      image={SpriteImage.buttonImage!}
+                      size={32}
                     />
                   </div>
-                ))}
+                </div>
+                <div className={styles.agentSkills}>
+                  {skills.map((skill, index) => (
+                    <div key={skill} className={styles.skillItem}>
+                      <SpriteButton
+                        normalFrameCoordinate={`${14 + index}x0`}
+                        hoverFrameCoordinate={`${14 + index}x0`}
+                        activeFrameCoordinate={`${14 + index}x0`}
+                        image={SpriteImage.buttonImage!}
+                        size={32}
+                        onClick={() => handleSkillToggle(skill)}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
