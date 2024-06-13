@@ -8,6 +8,7 @@ interface SpriteButtonProps {
   hoverFrameCoordinate: string;
   activeFrameCoordinate: string;
   size?: number;
+  zoomLevel?: number;
   onClick?: () => void;
 }
 
@@ -45,7 +46,7 @@ const SpriteButton = (props: SpriteButtonProps) => {
 
   return (
     <div
-      style={{width: size, height: size, display: 'inline-block', zIndex: 1, cursor: 'url("custom-pointer.png"), auto'}}
+      style={{width: size * (props.zoomLevel || 1), height: size * (props.zoomLevel || 1), display: 'inline-block', zIndex: 1, cursor: 'url("custom-pointer.png"), auto'}}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseDown={handleMouseDown}
@@ -55,6 +56,7 @@ const SpriteButton = (props: SpriteButtonProps) => {
         image={props.image}
         frameCoordinate={currentFrameCoordinate}
         size={size}
+        zoomLevel={props.zoomLevel}
       />
     </div>
   );
