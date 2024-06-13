@@ -3,11 +3,12 @@ import { Conversation } from '../Conversation';
 import { GameObject, IGameObject } from '../GameObject';
 import { MapState } from '../MapState';
 
-enum AgentStatus {
+export enum AgentStatus {
   IDLE = 'idle',
   WORKING = 'working',
   WALKING = 'walking',
   TALKING = 'talking',
+  WAITING = 'waiting',
 }
 
 export class AgentObject extends GameObject {
@@ -22,7 +23,6 @@ export class AgentObject extends GameObject {
   // Animation properties
   private animationIntervalSecs: number = 0.2;
   private lastFrameChange: number;
-  private inConversation: boolean = false;
 
   constructor(
     properties: IGameObject,
@@ -62,11 +62,6 @@ export class AgentObject extends GameObject {
   updateAnimationFrame() {
     const frameY = this.frameCoordinate.split('x')[1];
     const frameX = this.frameCoordinate.split('x')[0];
-    if (this.status === AgentStatus.TALKING) {
-      this.inConversation = true;
-    } else {
-      this.inConversation = false;
-    }
     if (this.status === AgentStatus.WALKING) {
       const walkingFrames = ['0', '1', '2', '3'];
       const currentFrameIndex = walkingFrames.indexOf(frameX);
@@ -95,6 +90,6 @@ export class AgentObject extends GameObject {
   }
 
   renderComponent() {
-    return <Agent frameCoordinate={this.frameCoordinate} inConversation={this.inConversation}/>
+    return <Agent frameCoordinate={this.frameCoordinate} agentStatus={this.status}/>
   }
 }
