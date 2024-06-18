@@ -43,6 +43,15 @@ export const AgentsAtom = atom<IAgentsAtom>({
         bodyFrameCoordinate: '0.5x2.5',
         portraitFrameCoordinate: '0x0',
       },
+      {
+        id: 'manager-agent',
+        name: 'David',
+        x: 10,
+        y: 6,
+        gameFrameCoordiante: '0x4',
+        bodyFrameCoordinate: '0.5x8.5',
+        portraitFrameCoordinate: '6x0',
+      },
     ],
   },
 });
