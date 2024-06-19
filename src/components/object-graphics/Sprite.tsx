@@ -17,6 +17,12 @@ interface SpriteProps {
    * The size of the sprite
    */
   size: number;
+
+  /**
+   * The zoom level of the sprite
+   * @default 1
+   */
+  zoomLevel?: number;
 }
 
 // How to set an initializer value for size of the prop?
@@ -45,13 +51,14 @@ const Sprite = (props: SpriteProps) => {
       size, // How much to crop from the sprite shet (Y)
       0, // Where to place this on canvas tag X (0)
       0, // Where to place this on canvas tag Y (0)
-      size, // How large to scale it (X)
-      size, // How large to scale it (Y)
+      size * (props.zoomLevel || 1), // How large to scale it (X)
+      size * (props.zoomLevel || 1), // How large to scale it (Y)
     )
-  }, [props.frameCoordinate, size, props.image]);
+
+  }, [props.frameCoordinate, size, props.image, props.zoomLevel]);
 
   return (
-    <canvas width={size} height={size} ref={canvasRef} />
+    <canvas width={size * (props.zoomLevel || 1)} height={size * (props.zoomLevel || 1)} ref={canvasRef} />
   );
 };
 

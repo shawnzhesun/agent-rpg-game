@@ -69,7 +69,7 @@ const RenderAgentCreation = () => {
                   onClick={handlePreviousAgent}
                 />
                 <div className={styles.agentPortrait}>
-                  <Sprite frameCoordinate={`${currentAgentIndex}x0`} image={SpriteImage.portraitImage!} size={192} />
+                  <Sprite frameCoordinate={`${currentAgentIndex}x0`} image={SpriteImage.portraitImage!} size={192} zoomLevel={0.6} />
                 </div>
                 <SpriteButton
                   normalFrameCoordinate='11x0'
@@ -120,6 +120,7 @@ const RenderAgentCreation = () => {
                         activeFrameCoordinate={`${14 + index}x0`}
                         image={SpriteImage.buttonImage!}
                         size={32}
+                        zoomLevel={0.6}
                         onClick={() => handleSkillToggle(skill)}
                       />
                     </div>
