@@ -6,6 +6,7 @@ import { SpriteImageAtom } from '../../atoms/SpriteImageAtom';
 import Sprite from '../object-graphics/Sprite';
 import SpriteButton from '../object-graphics/SpriteButton';
 import { CurrentSceneAtom } from '../../atoms/CurrentSceneAtom';
+import AgentStatsComponent from '../agent-stats/AgentStatsComponent';
 
 const RenderAgentCreation = () => {
   const SpriteImage = useRecoilValue(SpriteImageAtom);
@@ -106,20 +107,25 @@ const RenderAgentCreation = () => {
                   onChange={(e) => setAgentDescription(e.target.value)}
                 />
               </div>
-              <div className={styles.agentSkills}>
-                {skills.map((skill, index) => (
-                  <div key={skill} className={styles.skillItem}>
-                    <SpriteButton
-                      normalFrameCoordinate={`${14+index}x0`}
-                      hoverFrameCoordinate={`${14+index}x0`}
-                      activeFrameCoordinate={`${14+index}x0`}
-                      image={SpriteImage.buttonImage!}
-                      size={32}
-                      zoomLevel={0.6}
-                      onClick={() => handleSkillToggle(skill)}
-                    />
-                  </div>
-                ))}
+              <div className={styles.statsSelectionContainer}>
+                <div className={styles.modelSelection}>
+                  <AgentStatsComponent />
+                </div>
+                <div className={styles.agentSkills}>
+                  {skills.map((skill, index) => (
+                    <div key={skill} className={styles.skillItem}>
+                      <SpriteButton
+                        normalFrameCoordinate={`${14 + index}x0`}
+                        hoverFrameCoordinate={`${14 + index}x0`}
+                        activeFrameCoordinate={`${14 + index}x0`}
+                        image={SpriteImage.buttonImage!}
+                        size={32}
+                        zoomLevel={0.6}
+                        onClick={() => handleSkillToggle(skill)}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
